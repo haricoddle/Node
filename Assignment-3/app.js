@@ -7,11 +7,11 @@ const db = mysql.createConnection( {
     host: 'localhost',
     user: 'root',
     password: 'password',
-    database: 'company'
+    database: 'hari_prasad'
 })
 
- app.get('/employee', (req, res) => {
-    const sql = 'SELECT * FROM employee';
+ app.get('/customers', (req, res) => {
+    const sql = 'SELECT * FROM customers';
     db.query(sql, (err, data) => {
         if(err) return res.json(err);
         return res.json(data);
