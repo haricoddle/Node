@@ -4,3 +4,4 @@ const server = http.createServer(function(req, res){
     res.write('Hi myself Hari');
     res.end();
 }).listen(port);
+console.log(document);
