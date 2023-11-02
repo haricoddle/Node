@@ -7,7 +7,11 @@ const db = mysql.createConnection( {
     host: 'localhost',
     user: 'root',
     password: 'password',
-    database: 'hari_prasad'
+    database: 'hari'
+})
+
+app.get('/myName', (req, res)=> {
+    console.log('hi my name is hari');
 })
 
  app.get('/customers', (req, res) => {
