@@ -1,4 +1,5 @@
-const con = require('../models/connection');
+const con = require('../dbConnect ');
+const qer = require('../models/connection')
 
 const createUser = (req, res) => {
     let name =  req.body.name;
@@ -10,9 +11,8 @@ const createUser = (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
 
-    let qr =  `INSERT INTO customers(name, dob, phone, address, email, licence_no, username, password) VALUES('${name}','${dob}', '${phone}', '${address}', '${email}','${licence_no}','${username}','${password}')`;
 
-    con.query(qr, (err,result)=>{
+    con.query(qer.signUpQuery(name,dob,phone,address,email,licence_no,username,password), (err,result)=>{
         if(err) {
             res.send({error:'Error occured'});
         } else {

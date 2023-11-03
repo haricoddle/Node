@@ -1,15 +1,8 @@
-const mysql = require('mysql2');
-
-const conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'hari'
-})
-
-conn.connect(function(err) {
-    if(err) throw err;
-    console.log('Connected to database');
-})
-
-module.exports = conn;
+function signUpQuery(name,dob,phone,address,email,licence_no,username,password) {
+    let qr =  `INSERT INTO customer(name, dob, phone, address, email, licence_no, username, password) VALUES('${name}','${dob}', '${phone}', '${address}', '${email}','${licence_no}','${username}','${password}')`;
+    return qr;
+    }
+    
+    module.exports = {
+        signUpQuery,
+    }
