@@ -1,4 +1,4 @@
-const con = require('../dbConnect');
+const con = require('../config/dbConnect');
 const qer = require('../models/connection')
 
 const createUser = (req, res) => {
@@ -7,16 +7,19 @@ const createUser = (req, res) => {
     let phone = req.body.phone;
     let address = req.body.address;
     let email = req.body.email;
-    let licence_no = req.body.licence_no;
+    let licenceNo = req.body.licence_no;
     let username = req.body.username;
     let password = req.body.password;
 
+    if (!name || !dob || !phone || !address || !email || !licenceNo || !username || !password) {
+        return res.status(400).send({ error: 'All fields are required' });
+    }
 
-    con.query(qer.signUpQuery(name,dob,phone,address,email,licence_no,username,password), (err,result)=>{
+    con.query(qer.signUpQuery(name,dob,phone,address,email,licenceNo,username,password), (err,result)=>{
         if(err) {
-            res.send({error:'Error occured'});
+            res.status(500).send({error:'Error occured'});
         } else {
-            res.send({success:'Successful'});
+            res.status(201).send({success:'Successful'});
         }
     });
 }
