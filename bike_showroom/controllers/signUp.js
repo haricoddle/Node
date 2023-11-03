@@ -1,4 +1,4 @@
-const con = require('../dbConnect ');
+const con = require('../dbConnect');
 const qer = require('../models/connection')
 
 const createUser = (req, res) => {
