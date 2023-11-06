@@ -5,7 +5,7 @@ const signController = require('../controllers/signUp')
 const jsonParser = bodyParser.json();
 router.use(jsonParser)
 
-router.post('/', signController.createUser);
+router.post('/register', signController.createUser);
 
 router.get('/login', signController.checkUser)
 

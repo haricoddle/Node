@@ -19,7 +19,7 @@ const createUser = (req, res) => {
         if(err) {
             res.status(500).send({error:'Error occured'});
         } else {
-            res.status(201).send({success:'Successful'});
+            res.status(201).send({success:'New user added'});
         }
     });
 }

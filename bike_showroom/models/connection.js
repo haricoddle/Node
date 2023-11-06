@@ -7,7 +7,8 @@ function loginQuery(username,password) {
     let qr = `SELECT * FROM customer WHERE username = '${username}' AND password = '${password}';`
     return qr;
 }
-    module.exports = {
-        signUpQuery,
-        loginQuery
-    }
+
+module.exports = {
+    signUpQuery,
+    loginQuery
+}
