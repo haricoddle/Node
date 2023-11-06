@@ -7,4 +7,6 @@ router.use(jsonParser)
 
 router.post('/', signController.createUser);
 
+router.get('/login', signController.checkUser)
+
 module.exports = router;

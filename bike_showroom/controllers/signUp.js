@@ -24,6 +24,27 @@ const createUser = (req, res) => {
     });
 }
 
+const checkUser = (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+
+    if(!username || !password) {
+        res.status(400).send({error: 'All feilds are required'});
+    }
+
+    con.query(qer.loginQuery(username,password), (err,result) => {
+        if(err) {
+            res.status(500).send({error: 'Error occured'});
+        }
+        if(result.length > 0) {
+            res.status(200).send({success: 'User found'});
+        } else {
+             res.status(400).send({error: 'User not found'});
+        }
+    })
+}
+
 module.exports = {
     createUser,
+    checkUser
 }
