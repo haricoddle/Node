@@ -37,7 +37,7 @@ const checkUser = (req, res) => {
             res.status(500).send({error: 'Error occured'});
         }
         if(result.length > 0) {
-            res.status(200).send({success: 'User found'});
+            res.status(200).send({success: 'Login successful'});
         } else {
              res.status(400).send({error: 'User not found'});
         }
