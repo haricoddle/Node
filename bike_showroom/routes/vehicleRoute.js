@@ -7,4 +7,6 @@ router.use(jsonParser);
 
 router.get('/showAll', bikeController.showAllVehicles);
 
+router.post('/addVehicle', bikeController.addNewVehicle);
+
 module.exports = router;

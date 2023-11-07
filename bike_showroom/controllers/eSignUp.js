@@ -23,6 +23,10 @@ const createEmployee = (req,res) => {
         })
     }
 
+// const updateEmployee = (req, res) => {
+
+// }
+
 module.exports = {
     createEmployee,
 }

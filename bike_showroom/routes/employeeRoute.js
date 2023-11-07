@@ -7,4 +7,5 @@ router.use(jsonParser);
 
 router.post('/register', signController.createEmployee);
 
+// router.post('/updateEmp', signController.updateEmployee);
 module.exports = router;
