@@ -3,6 +3,7 @@ const qer = require('../models/connection');
 const jwt = require('jsonwebtoken');
 const secretKey = 'hari@2905';
 
+
 function generateToken(user) {
     return jwt.sign(user, secretKey);
 }
