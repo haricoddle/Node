@@ -7,6 +7,10 @@ router.use(jsonParser)
 
 router.post('/register', signController.createUser);
 
-router.get('/login', signController.checkUser)
+router.get('/login', signController.checkUser);
+
+router.get('/search', signController.findUser);
+
+router.delete('/delete', signController.deleteUser)
 
 module.exports = router;

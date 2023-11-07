@@ -44,7 +44,42 @@ const checkUser = (req, res) => {
     })
 }
 
+const findUser = (req, res) => {
+    let id = req.body.id;
+
+    if(!id) {
+        res.status(400).send({error: "Feild required"});
+    }
+
+    con.query(qer.searchQuery(id), (err, result) => {
+        if(err) {
+            res.status(500).send({error: 'Error occuerd'});
+        }
+        if(result.length > 0) {
+            res.status(200).send({success : result});
+        } else {
+            res.status(400).send({error: 'User not found'});
+        }
+    })
+}
+
+const deleteUser = (req, res) => {
+    let id = req.body.id;
+
+    if(!id) {
+        res.status(400).send({error : 'Feilds required'})
+    }
+    con.query(qer.deleteQuery(id), (err, result) => {
+        if(err) {
+            res.status(500).send({error: 'Error occured'});
+        } else {
+            res.status(200).send({success: 'User deleted'});
+        }
+    })
+}
 module.exports = {
     createUser,
-    checkUser
+    checkUser,
+    findUser,
+    deleteUser
 }

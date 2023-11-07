@@ -8,7 +8,19 @@ function loginQuery(username,password) {
     return qr;
 }
 
+function searchQuery(id) {
+    let qr = `SELECT * FROM customer WHERE id = ${id};`;
+    return qr;
+}
+
+function deleteQuery(id) {
+    let qr = `DELETE FROM customer WHERE id = ${id};`; 
+    return qr;
+}
+
 module.exports = {
     signUpQuery,
-    loginQuery
+    loginQuery,
+    searchQuery,
+    deleteQuery
 }
