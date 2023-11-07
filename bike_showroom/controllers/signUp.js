@@ -1,5 +1,11 @@
 const con = require('../config/dbConnect');
-const qer = require('../models/connection')
+const qer = require('../models/connection');
+const jwt = require('jsonwebtoken');
+const secretKey = 'hari@2905';
+
+function generateToken(user) {
+    return jwt.sign(user, secretKey);
+}
 
 const createUser = (req, res) => {
     let name =  req.body.name;
@@ -37,7 +43,9 @@ const checkUser = (req, res) => {
             res.status(500).send({error: 'Error occured'});
         }
         if(result.length > 0) {
-            res.status(200).send({success: 'Login successful'});
+            const user = result[0];
+            const token = generateToken({id: user.id, username: user.username})
+            res.status(200).send({success: 'Login successful', token: token});
         } else {
              res.status(400).send({error: 'User not found'});
         }
@@ -80,6 +88,7 @@ const deleteUser = (req, res) => {
 module.exports = {
     createUser,
     checkUser,
+    generateToken,
     findUser,
     deleteUser
 }
