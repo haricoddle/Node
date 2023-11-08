@@ -2,8 +2,8 @@ const con = require('../config/dbConnect');
 const qer = require('../models/vehicleConnection');
 
 const showAllVehicles = (req, res) => {
-
-    con.query(qer.displayQuery(), (err, result) => {
+    let type = req.body.type;
+    con.query(qer.displayQuery(type), (err, result) => {
         if(err) {
             res.status(400).send({error: 'Error occured'});
         } else {
