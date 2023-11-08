@@ -10,7 +10,13 @@ function updateServiceQuery(date,id) {
     return qr;
 }
 
+function deleteServiceQuery(id) {
+    let qr = `DELETE FROM service_booking WHERE id = ${id}`;
+    return qr;
+}
+
 module.exports = {
     addServiceQuery,
     updateServiceQuery,
+    deleteServiceQuery,
 }

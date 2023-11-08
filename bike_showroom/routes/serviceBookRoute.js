@@ -9,4 +9,6 @@ router.post('/booking', serviceController.addService);
 
 router.put('/update', serviceController.updateService);
 
+router.delete('/delete', serviceController.deleteService);
+
 module.exports = router;

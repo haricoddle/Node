@@ -36,7 +36,24 @@ const updateService = (req, res) => {
     })
 }
 
+const deleteService = (req, res) => {
+    let id = req.body.id;
+
+    if(!id) {
+        res.status(500).send({error: 'Feild required'});
+    }
+    con.query(qer.deleteServiceQuery(id), (err, result) => {
+        if(err) {
+            res.status(400).send({error: 'Error occured'});
+        } else {
+            res.status(200).send({success: 'Service deleted'});
+        }
+    })
+}
+
 module.exports = {
     addService,
     updateService,
+    deleteService,
+
 }
