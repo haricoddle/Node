@@ -12,7 +12,15 @@ function addVehicleQuery(typeId, modelName, cc, price, colorId) {
     return qr;
 }
 
+function updateVehicleQuery(id, price) {
+    let qr = `UPDATE vehicle
+        SET price = ${price}
+        WHERE id = ${id};`
+    return qr;
+}
+
 module.exports = {
     displayQuery,
-    addVehicleQuery
+    addVehicleQuery,
+    updateVehicleQuery,
 }

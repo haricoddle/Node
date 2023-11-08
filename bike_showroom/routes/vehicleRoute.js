@@ -9,4 +9,6 @@ router.get('/showAll', bikeController.showAllVehicles);
 
 router.post('/addVehicle', bikeController.addNewVehicle);
 
+router.put('/updateVehicle', bikeController.updateVehicles);
+
 module.exports = router;

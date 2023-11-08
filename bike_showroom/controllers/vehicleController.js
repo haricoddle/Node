@@ -31,7 +31,26 @@ const addNewVehicle = (req, res) => {
         }
     });
 }
+
+const updateVehicles = (req, res) => {
+    let id = req.body.id;
+    let price = req.body.price;
+
+    if(!id || !price) {
+        res.status(400).send({error: 'All feilds are required'});
+    }
+
+    con.query(qer.updateVehicleQuery(id,price), (err, result) => {
+        if(err) {
+            res.status(500).send({error: 'Error occured'});
+        } else {
+            res.status(200).send({success: 'Vehicle updated successfully'});
+        }
+    })
+}
+
 module.exports = {
     showAllVehicles,
-    addNewVehicle
+    addNewVehicle,
+    updateVehicles,
 }
