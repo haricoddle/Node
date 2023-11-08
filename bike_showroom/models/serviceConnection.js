@@ -3,6 +3,14 @@ function addServiceQuery(custId, vehicleId, date, issueFaced) {
     return qr;
 }
 
+function updateServiceQuery(date,id) {
+    let qr = `UPDATE service_booking
+            SET date = '${date}'
+            WHERE id = ${id};`
+    return qr;
+}
+
 module.exports = {
     addServiceQuery,
+    updateServiceQuery,
 }

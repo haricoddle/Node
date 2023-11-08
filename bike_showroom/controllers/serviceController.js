@@ -20,6 +20,23 @@ const addService = (req, res) => {
     })
 }
 
+const updateService = (req, res) => {
+    let date = req.body.date;
+    let id = req.body.id;
+
+    if(!date) {
+        res.status(400).send({error: 'feild required'});
+    }
+    con.query(qer.updateServiceQuery(date,id), (err, result) => {
+        if(err) {
+            res.status(500).send({error: 'Error occured'});
+        } else {
+            res.status(200).send({success: 'Update added'});
+        }
+    })
+}
+
 module.exports = {
     addService,
+    updateService,
 }

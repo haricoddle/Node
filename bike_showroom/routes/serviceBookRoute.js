@@ -7,4 +7,6 @@ router.use(jsonParser);
 
 router.post('/booking', serviceController.addService);
 
+router.put('/update', serviceController.updateService);
+
 module.exports = router;
