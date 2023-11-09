@@ -1,11 +1,11 @@
 const con = require('../config/dbConnect');
 const qer = require('../models/service');
 
-const addService = (req, res) => {
-    let custId = req.body.cust_id;
-    let vehicleId = req.body.vehicle_id;
-    let date = req.body.date;
-    let issueFaced = req.body.issue_faced;
+const addService = async(req, res) => {
+    let custId = await req.body.cust_id;
+    let vehicleId = await req.body.vehicle_id;
+    let date = await req.body.date;
+    let issueFaced = await req.body.issue_faced;
 
     if(!custId || !vehicleId || !date || !issueFaced) {
         res.status(400).send({error: 'All feilds are required'});
@@ -20,9 +20,9 @@ const addService = (req, res) => {
     })
 }
 
-const updateService = (req, res) => {
-    let date = req.body.date;
-    let id = req.body.id;
+const updateService = async(req, res) => {
+    let date = await req.body.date;
+    let id = await req.body.id;
 
     if(!date) {
         res.status(400).send({error: 'feild required'});
@@ -36,8 +36,8 @@ const updateService = (req, res) => {
     })
 }
 
-const deleteService = (req, res) => {
-    let id = req.body.id;
+const deleteService = async(req, res) => {
+    let id = await req.body.id;
 
     if(!id) {
         res.status(500).send({error: 'Feild required'});
