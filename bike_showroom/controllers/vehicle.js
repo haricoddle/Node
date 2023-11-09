@@ -2,8 +2,8 @@ const con = require('../config/dbConnect');
 const qer = require('../models/vehicle');
 
 const showAllVehicles = async(req, res) => {
-    let type = await req.body.type;
-    con.query(qer.displayQuery(type), (err, result) => {
+    let type =  req.body.type;
+    con.query(await qer.displayQuery(type), (err, result) => {
         if(err) {
             res.status(400).send({error: 'Error occured'});
         } else {
@@ -13,17 +13,17 @@ const showAllVehicles = async(req, res) => {
 }
 
 const addNewVehicle = async(req, res) => {
-    let typeId = await req.body.type_id;
-    let modelName = await req.body.model_name;
-    let cc = await req.body.cc;
-    let price = await req.body.price;
-    let colorId = await req.body.color_id;
+    let typeId =  req.body.type_id;
+    let modelName =  req.body.model_name;
+    let cc =  req.body.cc;
+    let price =  req.body.price;
+    let colorId =  req.body.color_id;
 
     if(!typeId || !modelName || !cc || !price || !colorId) {
         res.status(400).send({error : 'All feilds are required'});
     }
 
-    con.query(qer.addVehicleQuery(typeId, modelName, cc, price, colorId), (err, result) =>{
+    con.query(await qer.addVehicleQuery(typeId, modelName, cc, price, colorId), (err, result) =>{
         if(err) {
             res.status(500).send({error: 'Error occured'});
         } else {
@@ -33,14 +33,14 @@ const addNewVehicle = async(req, res) => {
 }
 
 const updateVehicles = async (req, res) => {
-    let id = await req.body.id;
-    let price = await req.body.price;
+    let id =  req.body.id;
+    let price =  req.body.price;
 
     if(!id || !price) {
         res.status(400).send({error: 'All feilds are required'});
     }
 
-    con.query(qer.updateVehicleQuery(id,price), (err, result) => {
+    con.query(await qer.updateVehicleQuery(id,price), (err, result) => {
         if(err) {
             res.status(500).send({error: 'Error occured'});
         } else {

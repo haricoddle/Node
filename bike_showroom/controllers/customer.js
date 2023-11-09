@@ -9,20 +9,20 @@ function generateToken(user) {
 }
 
 const createUser = async(req, res) => {
-    let name =  await req.body.name;
-    let dob = await req.body.dob;
-    let phone = await req.body.phone;
-    let address = await req.body.address;
-    let email = await req.body.email;
-    let licenceNo = await req.body.licence_no;
-    let username = await req.body.username;
-    let password = await req.body.password;
+    let name =   req.body.name;
+    let dob =  req.body.dob;
+    let phone =  req.body.phone;
+    let address =  req.body.address;
+    let email =  req.body.email;
+    let licenceNo =  req.body.licence_no;
+    let username =  req.body.username;
+    let password =  req.body.password;
 
     if (!name || !dob || !phone || !address || !email || !licenceNo || !username || !password) {
         return res.status(400).send({ error: 'All fields are required', success: false});
     }
 
-    con.query(qer.signUpQuery(name,dob,phone,address,email,licenceNo,username,password), (err,result)=>{
+    con.query(await qer.signUpQuery(name,dob,phone,address,email,licenceNo,username,password), (err,result)=>{
         if(err) {
             res.status(500).send({error:'Error occured', success: false});
         } else {
@@ -32,14 +32,14 @@ const createUser = async(req, res) => {
 }
 
 const checkUser = async (req, res) => {
-    let username = await req.body.username;
-    let password = await req.body.password;
+    let username =  req.body.username;
+    let password =  req.body.password;
 
     if(!username || !password) {
         res.status(400).send({error: 'All feilds are required', success: false});
     }
 
-    con.query(qer.loginQuery(username,password), (err,result) => {
+    con.query(await qer.loginQuery(username,password), (err,result) => {
         if(err) {
             res.status(500).send({error: 'Error occured', success: false});
         }
@@ -54,13 +54,13 @@ const checkUser = async (req, res) => {
 }
 
 const findUser = async (req, res) => {
-    let id = await req.body.id;
+    let id = req.body.id;
 
     if(!id) {
         res.status(400).send({error: 'Feild required', success: false});
     }
 
-    con.query(qer.searchQuery(id), (err, result) => {
+    con.query(await qer.searchQuery(id), (err, result) => {
         if(err) {
             res.status(500).send({error: 'Error occuerd', success: false});
         }
@@ -73,12 +73,12 @@ const findUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-    let id = await req.body.id;
+    let id = req.body.id;
 
     if(!id) {
         res.status(400).send({error : 'Feilds required', success: false})
     }
-    con.query(qer.deleteQuery(id), (err, result) => {
+    con.query(await qer.deleteQuery(id), (err, result) => {
         if(err) {
             res.status(500).send({error: 'Error occured', success: false});
         } else {
