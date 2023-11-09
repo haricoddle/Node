@@ -1,5 +1,5 @@
 const con = require('../config/dbConnect');
-const qer = require('../models/empConnection');
+const qer = require('../models/employee');
 
 const createEmployee = (req,res) => {
     let deptId = req.body.dept_id;

@@ -1,5 +1,5 @@
 const con = require('../config/dbConnect');
-const qer = require('../models/serviceConnection');
+const qer = require('../models/service');
 
 const addService = (req, res) => {
     let custId = req.body.cust_id;

@@ -1,5 +1,5 @@
 const con = require('../config/dbConnect');
-const qer = require('../models/vehicleConnection');
+const qer = require('../models/vehicle');
 
 const showAllVehicles = (req, res) => {
     let type = req.body.type;

@@ -1,5 +1,5 @@
 const con = require('../config/dbConnect');
-const qer = require('../models/connection');
+const qer = require('../models/customer');
 const jwt = require('jsonwebtoken');
 const secretKey = 'hari@2905';
 

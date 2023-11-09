@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const port = 8001;
 
-const signRoute = require('./routes/signUpRoute');
-const empSignRoute = require('./routes/employeeRoute');
-const bikesRoute = require('./routes/vehicleRoute');
-const serviceRoute = require('./routes/serviceBookRoute')
+const signRoute = require('./routes/customer');
+const empSignRoute = require('./routes/employee');
+const bikesRoute = require('./routes/vehicle');
+const serviceRoute = require('./routes/serviceBook')
 app.use('/customer', signRoute);
 
 app.use('/employee', empSignRoute);
