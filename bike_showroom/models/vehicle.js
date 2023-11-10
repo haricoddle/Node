@@ -1,3 +1,5 @@
+const con = require('../config/dbConnect');
+
 function displayQuery(type) {
     let qr = `SELECT v.model_name, v.cc, v.price, v.color_id
             FROM vehicle AS v

@@ -1,4 +1,3 @@
-const con = require('../config/dbConnect');
 const qer = require('../models/customer');
 const jwt = require('jsonwebtoken');
 const secretKey = 'hari@2905';
@@ -22,13 +21,12 @@ const createUser = async(req, res) => {
         return res.status(400).send({ error: 'All fields are required', success: false});
     }
 
-    con.query(await qer.signUpQuery(name,dob,phone,address,email,licenceNo,username,password), (err,result)=>{
-        if(err) {
-            res.status(500).send({error:'Error occured', success: false});
-        } else {
-            res.status(201).send({success:'New user added'});
-        }
-    });
+    try {
+        await qer.signUpQuery(name, dob, phone, address, email, licenceNo, username, password);
+        res.status(201).send({ success: 'New user added'});
+    } catch (err) {
+        res.status(500).send({ error: 'Error occurred', success: false});
+    }
 }
 
 const checkUser = async (req, res) => {
@@ -38,19 +36,20 @@ const checkUser = async (req, res) => {
     if(!username || !password) {
         res.status(400).send({error: 'All feilds are required', success: false});
     }
-
-    con.query(await qer.loginQuery(username,password), (err,result) => {
-        if(err) {
-            res.status(500).send({error: 'Error occured', success: false});
-        }
+    try{
+        let result = await qer.loginQuery(username,password)
         if(result.length > 0) {
             const user = result[0];
             const token = generateToken({id: user.id, username: user.username})
             res.status(200).send({success: 'Login successful', token: token});
         } else {
-             res.status(400).send({error: 'User not found'});
+             res.status(400).send({error: 'User not found', success: false});
         }
-    })
+    } 
+    catch(err) {
+        res.status(500).send({error: 'Error occured', success: false});
+
+    }    
 }
 
 const findUser = async (req, res) => {
@@ -59,17 +58,18 @@ const findUser = async (req, res) => {
     if(!id) {
         res.status(400).send({error: 'Feild required', success: false});
     }
-
-    con.query(await qer.searchQuery(id), (err, result) => {
-        if(err) {
-            res.status(500).send({error: 'Error occuerd', success: false});
-        }
-        if(result.length > 0) {
-            res.status(200).send({success : result});
+    try{
+       let result = await qer.searchQuery(id)
+       if(result.length > 0) {
+        res.status(200).send({success : result[0]});
         } else {
-            res.status(400).send({error: 'User not found', success: false});
-        }
-    })
+        res.status(400).send({error: 'User not found', success: false});
+    }
+    }
+    catch(err){
+        res.status(500).send({error: 'Error occuerd', success: false});
+
+    }
 }
 
 const deleteUser = async (req, res) => {
@@ -78,14 +78,15 @@ const deleteUser = async (req, res) => {
     if(!id) {
         res.status(400).send({error : 'Feilds required', success: false})
     }
-    con.query(await qer.deleteQuery(id), (err, result) => {
-        if(err) {
-            res.status(500).send({error: 'Error occured', success: false});
-        } else {
-            res.status(200).send({success: 'User deleted'});
-        }
-    })
+    try{
+        await qer.deleteQuery(id);
+        res.status(200).send({success: 'User deleted'});
+    }
+    catch(err) {
+        res.status(500).send({error: 'Error occured', success: false});
+    }
 }
+
 module.exports = {
     createUser,
     checkUser,

@@ -19,5 +19,5 @@ app.use('/service', serviceRoute);
 app.use('/sale', salesRoute);
 
 app.listen(port, function(){
-    console.log('server listening at port 8001');  
+    console.log('server listening at port '+ port);  
 });

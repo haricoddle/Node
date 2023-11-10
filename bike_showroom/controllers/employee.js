@@ -1,4 +1,3 @@
-const con = require('../config/dbConnect');
 const qer = require('../models/employee');
 
 const createEmployee = async (req,res) => {
@@ -13,15 +12,14 @@ const createEmployee = async (req,res) => {
     if(!deptId || !name || !dob || !phone || !mail || !hireDate || !salary) {
         res.status(400).send({error : 'All feilds are required'});
     }
-
-        con.query(await qer.empSignUpQuery(deptId,name,dob,phone,mail,hireDate,salary), (err, result) => {
-            if(err) {
-                res.status(500).send({error : err});
-            } else {
-                res.status(200).send({success: 'Created new employee'});
-            }
-        })
+    try{
+        await qer.empSignUpQuery(deptId,name,dob,phone,mail,hireDate,salary)
+        res.status(200).send({success: 'Created new employee'});
     }
+    catch(err) {
+        res.status(500).send({error : err, success: false});
+    }        
+}
 
 // const updateEmployee = (req, res) => {
 

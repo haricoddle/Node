@@ -1,21 +1,27 @@
-function signUpQuery(name,dob,phone,address,email,licence_no,username,password) {
-    let qr =  `INSERT INTO customer(name, dob, phone, address, email, licence_no, username, password) VALUES('${name}','${dob}', '${phone}', '${address}', '${email}','${licence_no}','${username}','${password}')`;
-    return qr;
-    }
+const con = require('../config/dbConnect');
 
-function loginQuery(username,password) {
+async function signUpQuery(name, dob, phone, address, email, licenceNo, username, password) {
+    let qr = `INSERT INTO customer (name, dob, phone, address, email, licence_no, username, password) VALUES ('${name}','${dob}','${phone}','${address}','${email}','${licenceNo}','${username}','${password}');`;
+    let passedQuery = await con.promise().query(qr);
+    return passedQuery;
+}
+
+async function loginQuery(username,password) {
     let qr = `SELECT * FROM customer WHERE username = '${username}' AND password = '${password}';`
-    return qr;
+    let passedQuery = await con.promise().query(qr);
+    return passedQuery;
 }
 
-function searchQuery(id) {
+async function searchQuery(id) {
     let qr = `SELECT * FROM customer WHERE id = ${id};`;
-    return qr;
+    let passedQuery = await con.promise().query(qr);
+    return passedQuery;
 }
 
-function deleteQuery(id) {
+async function deleteQuery(id) {
     let qr = `DELETE FROM customer WHERE id = ${id};`; 
-    return qr;
+    let passedQuery = await con.promise().query(qr);
+    return passedQuery;
 }
 
 module.exports = {

@@ -1,15 +1,18 @@
-const con = require('../config/dbConnect');
 const qer = require('../models/vehicle');
 
 const showAllVehicles = async(req, res) => {
     let type =  req.body.type;
-    con.query(await qer.displayQuery(type), (err, result) => {
-        if(err) {
-            res.status(400).send({error: 'Error occured'});
-        } else {
-            res.status(200).send({success: result})
-        }
-    });
+
+    if(!type) {
+        res.status(400).send({error: 'Feild required', success:false})
+    }
+    try{
+        await qer.displayQuery(type)
+        res.status(200).send({success: result})
+    }
+    catch(err) {
+        res.status(400).send({error: 'Error occured', success: false});
+    }    
 }
 
 const addNewVehicle = async(req, res) => {
@@ -20,16 +23,15 @@ const addNewVehicle = async(req, res) => {
     let colorId =  req.body.color_id;
 
     if(!typeId || !modelName || !cc || !price || !colorId) {
-        res.status(400).send({error : 'All feilds are required'});
+        res.status(400).send({error : 'All feilds are required', success: false});
     }
-
-    con.query(await qer.addVehicleQuery(typeId, modelName, cc, price, colorId), (err, result) =>{
-        if(err) {
-            res.status(500).send({error: 'Error occured'});
-        } else {
-            res.status(200).send({success: 'Vehicle added successfully'});
-        }
-    });
+    try{
+        await qer.addVehicleQuery(typeId, modelName, cc, price, colorId)
+        res.status(200).send({success: 'Vehicle added successfully'});
+    }
+    catch(err) {
+        res.status(500).send({error: 'Error occured', success: false});
+    }
 }
 
 const updateVehicles = async (req, res) => {
@@ -37,16 +39,15 @@ const updateVehicles = async (req, res) => {
     let price =  req.body.price;
 
     if(!id || !price) {
-        res.status(400).send({error: 'All feilds are required'});
+        res.status(400).send({error: 'All feilds are required', success: false});
     }
-
-    con.query(await qer.updateVehicleQuery(id,price), (err, result) => {
-        if(err) {
-            res.status(500).send({error: 'Error occured'});
-        } else {
-            res.status(200).send({success: 'Vehicle updated successfully'});
-        }
-    })
+    try{
+        await qer.updateVehicleQuery(id,price)
+        res.status(200).send({success: 'Vehicle updated successfully'});
+    }
+    catch(err) {
+        res.status(500).send({error: 'Error occured', success: false});
+    }
 }
 
 module.exports = {
