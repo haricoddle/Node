@@ -87,11 +87,45 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const showAllUser = async (req, res) => {
+    const page = req.query.page;
+    const limit = req.query.limit;
+    const startIndex = (page -1) * limit;
+
+    try{
+        const result = await qer.showAllQuery(startIndex, limit);
+        res.status(200).send({success: result[0]});
+    }
+    catch(err) {
+        res.status(500).send({error: 'Error occured', success: false});
+    }
+    
+}
+
+const updateUser = async (req, res) => {
+    const phoneNumber = req.body.phone;
+    const id = req.body.id;
+
+    if(!phoneNumber || !id) {
+        res.status(400).send({error: 'All feilds are required', success: false});
+    }
+
+    try{
+        await qer.updateUserQuery(phoneNumber, id);
+        res.status(200).send({success: 'Customer details updates'});
+    }
+    catch(err) {
+        res.status(500).send({error: 'some error occured', success: false})
+    }
+}
+
 module.exports = {
     secretKey,
     createUser,
     checkUser,
     generateToken,
     findUser,
-    deleteUser
+    deleteUser,
+    showAllUser,
+    updateUser
 }

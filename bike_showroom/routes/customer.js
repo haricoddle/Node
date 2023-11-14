@@ -12,6 +12,10 @@ router.get('/login',signController.checkUser);
 
 router.get('/search', jwtAuthenticate.verifyToken, signController.findUser);
 
-router.delete('/delete', jwtAuthenticate.verifyToken, signController.deleteUser)
+router.delete('/delete', jwtAuthenticate.verifyToken, signController.deleteUser);
+
+router.get('/showAll', jwtAuthenticate.verifyToken, signController.showAllUser);
+
+router.put('/editDetails', jwtAuthenticate.verifyToken, signController.updateUser);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const qer = require('../models/vehicle');
 
-const showAllVehicles = async(req, res) => {
+const showVehicles = async(req, res) => {
     let type =  req.body.type;
 
     if(!type) {
@@ -50,8 +50,23 @@ const updateVehicles = async (req, res) => {
     }
 }
 
+const showAllVehicles = async (req, res) => {
+    const page = req.query.page;
+    const limit = req.query.limit;
+    const startIndex = (page -1) * limit;
+
+    try{
+        const result = await qer.showAllVehiclesQuery(startIndex, limit);
+        res.status(200).send({success: result[0]});
+    }
+    catch(err) {
+        res.status(500).send({error: 'Error occured', success: false});
+    }
+}
+
 module.exports = {
-    showAllVehicles,
+    showVehicles,
     addNewVehicle,
     updateVehicles,
+    showAllVehicles
 }

@@ -24,8 +24,16 @@ async function updateVehicleQuery(id, price) {
     return passedQuery;
 }
 
+async function showAllVehiclesQuery(startIndex, limit){
+    let qr = `SELECT * FROM vehicle
+            LIMIT ${startIndex}, ${limit};`
+    let passedQuery = await con.promise().query(qr);
+    return passedQuery;
+}
+
 module.exports = {
     displayQuery,
     addVehicleQuery,
     updateVehicleQuery,
+    showAllVehiclesQuery
 }

@@ -24,9 +24,24 @@ async function deleteQuery(id) {
     return passedQuery;
 }
 
+async function showAllQuery(startIndex, limit) {
+    let qr = `SELECT * FROM customer LIMIT ${startIndex}, ${limit}`
+    let passedQuery = await con.promise().query(qr);
+    return passedQuery;
+}
+
+async function updateUserQuery(phoneNumber, id) {
+    let qr = `UPDATE customer
+            SET phone = ${phoneNumber}
+            WHERE id = ${id};`
+    let passedQuery = await con.promise().query(qr);
+}
+
 module.exports = {
     signUpQuery,
     loginQuery,
     searchQuery,
-    deleteQuery
+    deleteQuery,
+    showAllQuery,
+    updateUserQuery
 }
