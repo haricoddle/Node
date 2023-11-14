@@ -12,8 +12,8 @@ async function loginQuery(username,password) {
     return passedQuery;
 }
 
-async function searchQuery(id) {
-    let qr = `SELECT * FROM customer WHERE id = ${id};`;
+async function searchQuery(custName) {
+    let qr = `SELECT * FROM customer WHERE name = '${custName}';`;
     let passedQuery = await con.promise().query(qr);
     return passedQuery;
 }

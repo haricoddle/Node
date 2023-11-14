@@ -7,8 +7,8 @@ const showAllVehicles = async(req, res) => {
         res.status(400).send({error: 'Feild required', success:false})
     }
     try{
-        await qer.displayQuery(type)
-        res.status(200).send({success: result})
+        const result = await qer.displayQuery(type)
+        res.status(200).send({success: result[0]})
     }
     catch(err) {
         res.status(400).send({error: 'Error occured', success: false});

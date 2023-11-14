@@ -5,7 +5,7 @@ const key = secKey.secretKey;
 
 function verifyToken(req,res,next) {
     let authHeader = req.headers.authorization;
-    console.log(key);
+    // console.log(key);
     if(!authHeader) {
         res.status(500).send({error: "no token provided"});
     }

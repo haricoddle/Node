@@ -53,13 +53,13 @@ const checkUser = async (req, res) => {
 }
 
 const findUser = async (req, res) => {
-    let id = req.body.id;
+    let custName = req.body.name;
 
-    if(!id) {
+    if(!custName) {
         res.status(400).send({error: 'Feild required', success: false});
     }
     try{
-       let result = await qer.searchQuery(id)
+       let result = await qer.searchQuery(custName)
        if(result.length > 0) {
         res.status(200).send({success : result[0]});
         } else {

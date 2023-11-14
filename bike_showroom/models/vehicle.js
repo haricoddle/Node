@@ -1,24 +1,27 @@
 const con = require('../config/dbConnect');
 
-function displayQuery(type) {
+async function displayQuery(type) {
     let qr = `SELECT v.model_name, v.cc, v.price, v.color_id
             FROM vehicle AS v
             LEFT JOIN vehicle_type as t
             ON v.type_id = t.id
             WHERE t.type = '${type}';`
-    return qr;
+    let passedQuery = await con.promise().query(qr);
+    return passedQuery
 }
 
-function addVehicleQuery(typeId, modelName, cc, price, colorId) {
+async function addVehicleQuery(typeId, modelName, cc, price, colorId) {
     let qr = `INSERT INTO vehicle(type_id, model_name, cc, price, color_id) VALUES(${typeId},'${modelName}', ${cc}, ${price}, ${colorId});`
-    return qr;
+    let passedQuery = await con.promise().query(qr);
+    return passedQuery;
 }
 
-function updateVehicleQuery(id, price) {
+async function updateVehicleQuery(id, price) {
     let qr = `UPDATE vehicle
         SET price = ${price}
         WHERE id = ${id};`
-    return qr;
+    let passedQuery = await con.promise().query(qr);
+    return passedQuery;
 }
 
 module.exports = {
