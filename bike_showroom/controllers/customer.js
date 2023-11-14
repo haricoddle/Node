@@ -88,6 +88,7 @@ const deleteUser = async (req, res) => {
 }
 
 module.exports = {
+    secretKey,
     createUser,
     checkUser,
     generateToken,
