@@ -35,6 +35,7 @@ async function updateUserQuery(phoneNumber, id) {
             SET phone = ${phoneNumber}
             WHERE id = ${id};`
     let passedQuery = await con.promise().query(qr);
+    return passedQuery;
 }
 
 async function showPageNoQuery() {
