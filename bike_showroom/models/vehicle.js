@@ -31,9 +31,16 @@ async function showAllVehiclesQuery(startIndex, limit){
     return passedQuery;
 }
 
+async function showPageNoQuery() {
+    let qr = `SELECT COUNT(*) AS count FROM vehicle;`; 
+    let passedQuery = await con.promise().query(qr);
+   return passedQuery;
+} 
+
 module.exports = {
     displayQuery,
     addVehicleQuery,
     updateVehicleQuery,
-    showAllVehiclesQuery
+    showAllVehiclesQuery,
+    showPageNoQuery
 }

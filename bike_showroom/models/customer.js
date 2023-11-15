@@ -37,11 +37,18 @@ async function updateUserQuery(phoneNumber, id) {
     let passedQuery = await con.promise().query(qr);
 }
 
+async function showPageNoQuery() {
+    let qr = `SELECT COUNT(*) AS count FROM customer;`; 
+    let passedQuery = await con.promise().query(qr);
+   return passedQuery;
+}
+
 module.exports = {
     signUpQuery,
     loginQuery,
     searchQuery,
     deleteQuery,
     showAllQuery,
-    updateUserQuery
+    updateUserQuery,
+    showPageNoQuery
 }
