@@ -9,6 +9,10 @@ const serviceRoute = require('./routes/serviceBook');
 const salesRoute = require('./routes/sales');
 const accessRoutes = require('./routes/accessories')
 
+const userServiceBookRoute = require('./userSide/routes/serviceBook');
+
+app.use('/bookService', userServiceBookRoute);
+
 app.use('/customer', signRoute);
 
 app.use('/employee', empSignRoute);
