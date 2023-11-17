@@ -13,4 +13,6 @@ router.post('/userBooking', jwtAuthenticate.verifyToken, userServiceController.a
 
 router.get('/showBookings', jwtAuthenticate.verifyToken, userServiceController.viewService);
 
+router.put('/cancelBooking', jwtAuthenticate.verifyToken, userServiceController.cancelService);
+
 module.exports = router;

@@ -21,8 +21,17 @@ async function viewBookingQuery(date) {
   return passedQuery;
 }
 
+async function cancelServiceQuery(date, bookingStatus) {
+  const qr = `UPDATE service_booking
+              SET booking_status = '${bookingStatus}'
+              WHERE date = '${date}';`;
+  const passedQuery = await con.promise().query(qr);
+  return passedQuery;
+}
+
 module.exports = {
   checkTimeQuery,
   addServiceQuery,
   viewBookingQuery,
+  cancelServiceQuery,
 };

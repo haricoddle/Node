@@ -42,7 +42,23 @@ const viewService = async (req, res) => {
   }
 };
 
+const cancelService = async (req, res) => {
+  const { date } = req.body;
+  const bookingStatus = req.body.booking_status;
+
+  if (!date || !bookingStatus) {
+    res.status(400).send({ error: 'All feilds required', success: false });
+  }
+  try {
+    await qer.cancelServiceQuery(date, bookingStatus);
+    res.status(200).send({ success: 'Booking canceled' });
+  } catch (err) {
+    res.status(500).send({ error: 'Error Occured', success: false });
+  }
+};
+
 module.exports = {
   addService,
   viewService,
+  cancelService,
 };
