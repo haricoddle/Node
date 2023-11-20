@@ -12,6 +12,7 @@ const salesRoute = require('./routes/sales');
 const accessRoutes = require('./routes/accessories');
 
 const userServiceBookRoute = require('./userSide/routes/serviceBook');
+const fileUploadRoute = require('./routes/fileUpload');
 
 app.use('/bookService', userServiceBookRoute);
 
@@ -26,6 +27,8 @@ app.use('/service', serviceRoute);
 app.use('/sale', salesRoute);
 
 app.use('/accessories', accessRoutes);
+
+app.use('/fileUpload', fileUploadRoute);
 
 app.listen(port, () => {
   console.log(`server listening at port ${port}`);
