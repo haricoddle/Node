@@ -1,25 +1,24 @@
-/* eslint-disable linebreak-style */
 const qer = require('../models/fileUpload');
 
-const uploadSingleFile = (req, res) => {
+const uploadimage = async (req, res) => {
   try {
-    qer.fileUploadQuery(req.file.path);
-    res.status(200).send({ success: 'File Uploaded successfully', path: req.file.path });
+    qer.imageUploadOuery(req.file.path);
+    res.status(200).send({ success: 'Image upload successfully', path: req.file.path });
   } catch (err) {
-    res.status(500).send({ error: 'Error occured' });
+    res.status(500).send({ error: 'Error occured', err });
   }
 };
 
-const uploadSinglePdf = (req, res) => {
+const uploadFile = async (req, res) => {
   try {
-    qer.uploadSinglePdfQuery(req.file.path);
-    res.status(200).send({ success: 'File uploaded successfully', path: req.file.path });
+    qer.fileUploadOuery(req.file.path);
+    res.status(200).send({ success: 'File upload successfully', path: req.file.path });
   } catch (err) {
-    res.status(500).send({ error: 'error occured' });
+    res.status(500).send({ error: 'Error occured', err });
   }
 };
 
 module.exports = {
-  uploadSingleFile,
-  uploadSinglePdf,
+  uploadimage,
+  uploadFile,
 };

@@ -1,7 +1,6 @@
-/* eslint-disable linebreak-style */
 const con = require('../config/dbConnect');
 
-async function fileUploadQuery(path) {
+async function imageUploadOuery(path) {
   const qr = `UPDATE vehicle
         SET image_url = '${path}'
         WHERE id = 123;`;
@@ -9,15 +8,15 @@ async function fileUploadQuery(path) {
   return passedQuery;
 }
 
-async function uploadSinglePdfQuery(path) {
+async function fileUploadOuery(path) {
   const qr = `UPDATE vehicle
-        SET pdf_url = '${path}'
-        WHERE id = 123;`;
+          SET pdf_url = '${path}'
+          WHERE id = 123;`;
   const passedQuery = con.promise().query(qr);
   return passedQuery;
 }
 
 module.exports = {
-  fileUploadQuery,
-  uploadSinglePdfQuery,
+  imageUploadOuery,
+  fileUploadOuery,
 };

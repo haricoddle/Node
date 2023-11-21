@@ -1,13 +1,13 @@
 /* eslint-disable linebreak-style */
 const express = require('express');
-const fileUploadController = require('../controllers/fileUpload');
-
-const multerMiddleware = require('../middleware/multer');
 
 const router = express.Router();
+const jwtAuthenticate = require('../middleware/tokenAuthentication');
+const fileUploadController = require('../controllers/fileUpload');
+const multerMiddleware = require('../middleware/multer');
 
-router.put('/single', multerMiddleware.upload.single('image'), multerMiddleware.errorHandler, fileUploadController.uploadSingleFile);
+router.put('/image', jwtAuthenticate.verifyToken, multerMiddleware.imageUpload.single('image'), multerMiddleware.imageErrorHandler, fileUploadController.uploadimage);
 
-router.put('/singlefile', multerMiddleware.upload.single('file'), multerMiddleware.errorHandler, fileUploadController.uploadSinglePdf);
+router.put('/file', jwtAuthenticate.verifyToken, multerMiddleware.fileUpload.single('file'), multerMiddleware.fileErrorHandler, fileUploadController.uploadFile);
 
 module.exports = router;
