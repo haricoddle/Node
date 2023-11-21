@@ -7,8 +7,9 @@ const addService = async (req, res) => {
   const { date } = req.body;
   const startTime = req.body.start_time;
   const issueFaced = req.body.issue_faced;
+  const bookingStatus = req.body.booking_status;
 
-  if (!custId || !vehicleId || !date || !startTime || !issueFaced) {
+  if (!custId || !vehicleId || !date || !startTime || !issueFaced || !bookingStatus) {
     res.status(400).send({ error: 'All feilds required', success: false });
   }
   try {
@@ -17,10 +18,10 @@ const addService = async (req, res) => {
       res.status(500).send({ error: 'Time slot booked already', success: false });
     } else {
       try {
-        await qer.addServiceQuery(custId, vehicleId, date, startTime, issueFaced);
+        await qer.addServiceQuery(custId, vehicleId, date, startTime, issueFaced, bookingStatus);
         res.status(200).send({ success: 'Service added' });
       } catch (err) {
-        res.status(500).send({ error: 'Error Occured', success: false });
+        res.status(500).send({ error: 'Error Occured', success: false, err });
       }
     }
   } catch (err) {

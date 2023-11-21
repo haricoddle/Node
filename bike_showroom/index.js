@@ -28,6 +28,8 @@ app.use('/sale', salesRoute);
 
 app.use('/accessories', accessRoutes);
 
+app.use('/profile', express.static('uploads/image'));
+
 app.use('/fileUpload', fileUploadRoute);
 
 app.listen(port, () => {
