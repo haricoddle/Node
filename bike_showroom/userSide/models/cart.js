@@ -6,6 +6,15 @@ async function addToCartQuery(custId, productId, quantity) {
   return passedQuery;
 }
 
+async function updateCartQuery(id, quantity) {
+  const qr = `UPDATE cart
+            set quantity = ${quantity}
+            WHERE id = ${id};`;
+  const passedQuery = await con.promise().query(qr);
+  return passedQuery;
+}
+
 module.exports = {
   addToCartQuery,
+  updateCartQuery,
 };

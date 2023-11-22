@@ -15,6 +15,21 @@ const addToCart = async (req, res) => {
   }
 };
 
+const updateCart = async (req, res) => {
+  const { id } = req.body;
+  const { quantity } = req.body;
+  if (!id || !quantity) {
+    res.status(400).send({ error: 'All feilds required', success: false });
+  }
+  try {
+    await qer.updateCartQuery(id, quantity);
+    res.status(200).send({ success: 'Cart Updated' });
+  } catch (error) {
+    res.status(500).send({ error: 'Error occured', success: false });
+  }
+};
+
 module.exports = {
   addToCart,
+  updateCart,
 };

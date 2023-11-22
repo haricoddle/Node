@@ -10,4 +10,6 @@ router.use(jsonParser);
 
 router.post('/addToCart', jwtAuthenticate.verifyToken, cartController.addToCart);
 
+router.put('/editCart', jwtAuthenticate.verifyToken, cartController.updateCart);
+
 module.exports = router;
