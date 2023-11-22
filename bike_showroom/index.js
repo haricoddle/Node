@@ -13,6 +13,7 @@ const accessRoutes = require('./routes/accessories');
 
 const userServiceBookRoute = require('./userSide/routes/serviceBook');
 const fileUploadRoute = require('./routes/fileUpload');
+const cartRoute = require('./userSide/routes/cart');
 
 app.use('/bookService', userServiceBookRoute);
 
@@ -31,6 +32,8 @@ app.use('/accessories', accessRoutes);
 app.use('/profile', express.static('uploads/image'));
 
 app.use('/fileUpload', fileUploadRoute);
+
+app.use('/cart', cartRoute);
 
 app.listen(port, () => {
   console.log(`server listening at port ${port}`);
