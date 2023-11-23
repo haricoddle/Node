@@ -14,7 +14,14 @@ async function updateCartQuery(id, quantity) {
   return passedQuery;
 }
 
+async function viewCartQuery(customerId) {
+  const qr = `SELECT * FROM cart WHERE customer_id = ${customerId};`;
+  const passedQuery = con.promise().query(qr);
+  return passedQuery;
+}
+
 module.exports = {
   addToCartQuery,
   updateCartQuery,
+  viewCartQuery,
 };

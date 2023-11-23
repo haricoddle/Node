@@ -12,4 +12,6 @@ router.post('/addToCart', jwtAuthenticate.verifyToken, cartController.addToCart)
 
 router.put('/editCart', jwtAuthenticate.verifyToken, cartController.updateCart);
 
+router.get('/showCart', jwtAuthenticate.verifyToken, cartController.viewCart);
+
 module.exports = router;

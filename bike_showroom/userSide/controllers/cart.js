@@ -29,7 +29,21 @@ const updateCart = async (req, res) => {
   }
 };
 
+const viewCart = async (req, res) => {
+  const customerId = req.body.customer_id;
+  if (!customerId) {
+    res.status(400).send({ error: 'All feilds required' });
+  }
+  try {
+    const data = await qer.viewCartQuery(customerId);
+    res.status(200).send({ success: data[0] });
+  } catch (err) {
+    res.status(500).send({ error: 'Error occured' });
+  }
+};
+
 module.exports = {
   addToCart,
   updateCart,
+  viewCart,
 };

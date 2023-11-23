@@ -1,7 +1,7 @@
 const con = require('../../config/dbConnect');
 
-async function getCartDetails(cartId) {
-  const qr = `SELECT * FROM cart WHERE id = ${cartId};`;
+async function getCartDetails(customerId) {
+  const qr = `SELECT * FROM cart WHERE customer_id = ${customerId};`;
   const passedQuery = await con.promise().query(qr);
   return passedQuery[0];
 }
@@ -19,9 +19,23 @@ async function addOrderOuery(productId, customerId, customerAddress, totalPrice,
 }
 
 async function getprice(id) {
-  const qr = `SELECT price FROM parts WHERE id = ${id};`;
+  const qr = `SELECT * FROM parts WHERE id = ${id};`;
   const passedQuery = await con.promise().query(qr);
   return passedQuery[0];
+}
+
+async function updateStock(productId, stock, quantity) {
+  const qr = `UPDATE parts
+            SET stock = ${stock} - ${quantity}
+            WHERE id = ${productId};`;
+  const passedQuery = await con.promise().query(qr);
+  return passedQuery;
+}
+
+async function deleteCartItems(customerId) {
+  const qr = `DELETE FROM cart WHERE customer_id = ${customerId};`;
+  const passedQuery = await con.promise().query(qr);
+  return passedQuery;
 }
 
 module.exports = {
@@ -29,4 +43,6 @@ module.exports = {
   getCustomerDetails,
   addOrderOuery,
   getprice,
+  updateStock,
+  deleteCartItems,
 };
