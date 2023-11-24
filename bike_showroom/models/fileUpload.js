@@ -16,7 +16,16 @@ async function fileUploadOuery(path) {
   return passedQuery;
 }
 
+async function partImageQuery(id, path) {
+  const qr = `UPDATE parts 
+        SET image_url = '${path}'
+        WHERE id = ${id};`;
+  const passedQuery = con.promise().query(qr);
+  return passedQuery;
+}
+
 module.exports = {
   imageUploadOuery,
   fileUploadOuery,
+  partImageQuery,
 };

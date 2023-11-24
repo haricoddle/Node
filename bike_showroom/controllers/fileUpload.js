@@ -9,7 +9,8 @@ const uploadimage = async (req, res) => {
       profile_url: `http://localhost:3000/profile/${req.file.filename}`,
     });
   } catch (err) {
-    res.status(500).send({ error: 'Error occured', err });
+    console.log(err);
+    res.status(500).send({ error: 'Error occured', err: `${err}` });
   }
 };
 
@@ -26,7 +27,25 @@ const uploadFile = async (req, res) => {
   }
 };
 
+const partsImage = async (req, res) => {
+  const { id } = req.query;
+  if (!id) {
+    res.status(400).send({ error: 'feild required', success: false });
+  }
+  try {
+    qer.partImageQuery(id, req.file.path);
+    res.status(200).send({
+      success: 'File uploaded successfully',
+      path: req.res.path,
+      profile_url: `http://localhost:3000/profile/${req.file.filename}`,
+    });
+  } catch (err) {
+    res.status(500).send({ error: 'Error occured', success: false });
+  }
+};
+
 module.exports = {
   uploadimage,
   uploadFile,
+  partsImage,
 };

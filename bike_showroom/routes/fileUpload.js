@@ -10,4 +10,6 @@ router.put('/image', jwtAuthenticate.verifyToken, multerMiddleware.imageUpload.s
 
 router.put('/file', jwtAuthenticate.verifyToken, multerMiddleware.fileUpload.single('file'), multerMiddleware.fileErrorHandler, fileUploadController.uploadFile);
 
+router.put('/partsImage', jwtAuthenticate.verifyToken, multerMiddleware.imageUpload.single('image'), multerMiddleware.imageErrorHandler, fileUploadController.partsImage);
+
 module.exports = router;
