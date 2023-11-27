@@ -6,6 +6,22 @@ async function addToCartQuery(custId, productId, quantity) {
   return passedQuery;
 }
 
+async function viewCartQuery(customerId) {
+  const qr = `SELECT p.name, p.price, p.image_url, a.type
+            FROM parts AS p
+            LEFT JOIN accessories AS a ON p.accessory_id = a.id
+            LEFT JOIN cart AS c ON p.id = c.product_id
+            WHERE c.customer_id = ${customerId};`;
+  const passedQuery = con.promise().query(qr);
+  return passedQuery;
+}
+
+async function getCartDetails(cartId) {
+  const qr = `SELECT * FROM cart WHERE id = ${cartId};`;
+  const passedQuery = await con.promise().query(qr);
+  return passedQuery[0];
+}
+
 async function updateCartQuery(id, quantity) {
   const qr = `UPDATE cart
             set quantity = ${quantity}
@@ -14,9 +30,9 @@ async function updateCartQuery(id, quantity) {
   return passedQuery;
 }
 
-async function viewCartQuery(customerId) {
-  const qr = `SELECT * FROM cart WHERE customer_id = ${customerId};`;
-  const passedQuery = con.promise().query(qr);
+async function deleteCart(cartId) {
+  const qr = `DELETE FROM cart WHERE id = ${cartId};`;
+  const passedQuery = await con.promise().query(qr);
   return passedQuery;
 }
 
@@ -24,4 +40,6 @@ module.exports = {
   addToCartQuery,
   updateCartQuery,
   viewCartQuery,
+  getCartDetails,
+  deleteCart,
 };

@@ -11,7 +11,7 @@ const imageStorageEngine = multer.diskStorage({
 });
 const imageUpload = multer({
   storage: imageStorageEngine,
-  limits: { fileSize: 2048000 },
+  limits: { fileSize: 1024 * 1024 * 2 },
 
 });
 
@@ -25,7 +25,7 @@ const fileStorageEngine = multer.diskStorage({
 });
 const fileUpload = multer({
   storage: fileStorageEngine,
-  limits: { fileSize: 5000000 },
+  limits: { fileSize: 1024 * 1024 * 5 },
 });
 
 // eslint-disable-next-line consistent-return

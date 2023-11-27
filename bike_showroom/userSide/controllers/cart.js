@@ -42,8 +42,51 @@ const viewCart = async (req, res) => {
   }
 };
 
+const incrementCart = async (req, res) => {
+  const cartId = req.body.id;
+  if (!cartId) {
+    res.status(400).send({ error: 'All feild required', success: false });
+  }
+  try {
+    const cartDetails = await qer.getCartDetails(cartId);
+    // eslint-disable-next-line no-plusplus
+    const itemQuantity = ++cartDetails[0].quantity;
+    if (itemQuantity > 5) {
+      res.status(500).send({ error: 'Max quantity reached', success: false });
+      return;
+    }
+    await qer.updateCartQuery(cartId, itemQuantity);
+    res.status(200).send({ success: 'Quantity Incremented' });
+  } catch (err) {
+    res.status(500).send({ error: 'error occured', success: false });
+  }
+};
+
+const decrementCart = async (req, res) => {
+  const cartId = req.body.id;
+  if (!cartId) {
+    res.status(400).send({ error: 'All feild required', success: false });
+  }
+  try {
+    const cartDetails = await qer.getCartDetails(cartId);
+    // eslint-disable-next-line no-plusplus
+    const itemQuantity = --cartDetails[0].quantity;
+    if (itemQuantity === 0) {
+      await qer.deleteCart(cartId);
+      res.status(200).send({ success: 'Quantity Decremented' });
+    } else {
+      await qer.updateCartQuery(cartId, itemQuantity);
+      res.status(200).send({ success: 'Quantity Decremented' });
+    }
+  } catch (err) {
+    res.status(500).send({ error: 'error occured', success: false });
+  }
+};
+
 module.exports = {
   addToCart,
   updateCart,
   viewCart,
+  incrementCart,
+  decrementCart,
 };

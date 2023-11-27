@@ -10,6 +10,7 @@ const bikesRoute = require('./routes/vehicle');
 const serviceRoute = require('./routes/serviceBook');
 const salesRoute = require('./routes/sales');
 const accessRoutes = require('./routes/accessories');
+const partRoutes = require('./routes/parts');
 
 const userServiceBookRoute = require('./userSide/routes/serviceBook');
 const fileUploadRoute = require('./routes/fileUpload');
@@ -37,6 +38,8 @@ app.use('/fileUpload', fileUploadRoute);
 app.use('/cart', cartRoute);
 
 app.use('/orders', orderRoute);
+
+app.use('/parts', partRoutes);
 
 app.listen(port, () => {
   console.log(`server listening at port ${port}`);

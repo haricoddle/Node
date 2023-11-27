@@ -14,4 +14,8 @@ router.put('/editCart', jwtAuthenticate.verifyToken, cartController.updateCart);
 
 router.get('/showCart', jwtAuthenticate.verifyToken, cartController.viewCart);
 
+router.put('/addQuantity', jwtAuthenticate.verifyToken, cartController.incrementCart);
+
+router.put('/deleteQuantity', jwtAuthenticate.verifyToken, cartController.decrementCart);
+
 module.exports = router;
