@@ -34,6 +34,25 @@ const addOrder = async (req, res) => {
   }
 };
 
+const viewOrders = async (req, res) => {
+  const { page } = req.query;
+  const { limit } = req.query;
+  const startIndex = (page - 1) * limit;
+  const customerId = req.body.customer_id;
+  if (!customerId) {
+    res.status(400).send({ error: 'Feild required', success: false });
+  }
+  try {
+    const data = await qer.viewOrdersQuery(customerId, startIndex, limit);
+    const pageNo = await qer.showPageNoQuery();
+    const totalPage = Math.ceil(pageNo[0][0].count / limit);
+    res.status(200).send({ totalPage, currentPage: page, success: data[0] });
+  } catch (err) {
+    res.status(500).send({ error: 'Error occured', success: false });
+  }
+};
+
 module.exports = {
   addOrder,
+  viewOrders,
 };

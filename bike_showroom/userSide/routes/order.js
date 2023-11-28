@@ -10,4 +10,6 @@ router.use(jsonParser);
 
 router.post('/addOrder', jwtAuthenticate.verifyToken, orderController.addOrder);
 
+router.get('/viewOrders', jwtAuthenticate.verifyToken, orderController.viewOrders);
+
 module.exports = router;

@@ -33,7 +33,21 @@ async function updateStock(productId, stock, quantity) {
 }
 
 async function deleteCartItems(customerId) {
-  const qr = `DELETE FROM cart WHERE customer_id = ${customerId};`;
+  const qr = `DELETE FROM cart 
+              WHERE customer_id = ${customerId};`;
+  const passedQuery = await con.promise().query(qr);
+  return passedQuery;
+}
+
+async function viewOrdersQuery(customerId, startIndex, limit) {
+  const qr = `SELECT * FROM orders WHERE cust_id = ${customerId}
+            LIMIT ${startIndex}, ${limit};`;
+  const passedQuery = await con.promise().query(qr);
+  return passedQuery;
+}
+
+async function showPageNoQuery() {
+  const qr = 'SELECT COUNT(*) AS count FROM customer;';
   const passedQuery = await con.promise().query(qr);
   return passedQuery;
 }
@@ -45,4 +59,6 @@ module.exports = {
   getprice,
   updateStock,
   deleteCartItems,
+  viewOrdersQuery,
+  showPageNoQuery,
 };
