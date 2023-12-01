@@ -60,7 +60,7 @@ const findUser = async (req, res) => {
   try {
     const result = await qer.searchQuery(custName);
     if (result.length > 0) {
-      res.status(200).send({ success: result[0] });
+      res.status(200).send({ result: result[0], success: true });
     } else {
       res.status(400).send({ error: 'User not found', success: false });
     }

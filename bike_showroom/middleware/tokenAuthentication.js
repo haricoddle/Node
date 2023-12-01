@@ -15,7 +15,7 @@ async function verifyToken(req, res, next) {
 
   const token = authHeader.split(' ')[1];
   try {
-  // eslint-disable-next-line no-unused-vars, consistent-return
+    // eslint-disable-next-line consistent-return
     jwt.verify(token, key, async (err, decoded) => {
       if (err) {
         return res.status(500).send({ error: 'Authentication failed' });
@@ -26,7 +26,7 @@ async function verifyToken(req, res, next) {
       next();
     });
   } catch (error) {
-    res.status(500).send({ error: 'Error occured in finding permission', success: false });
+    res.status(500).send({ error: 'Error occured', success: false });
   }
 }
 
