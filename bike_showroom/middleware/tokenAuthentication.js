@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
+
 const secKey = require('../controllers/customer');
 const qer = require('../models/employee');
 
 const key = secKey.secretKey;
+let deval = null;
 
-async function verifyToken(permission, req, res, next) {
+async function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -12,45 +14,44 @@ async function verifyToken(permission, req, res, next) {
   }
 
   const token = authHeader.split(' ')[1];
+  try {
   // eslint-disable-next-line no-unused-vars, consistent-return
-  jwt.verify(token, key, async (err, decoded) => {
-    if (err) {
-      return res.status(500).send({ error: 'Authentication failed' });
-    }
-
-    try {
-      const { username } = decoded;
-      const result = await qer.checkPermission(permission, username);
-
-      if (result.length === 0) {
-        return res.status(400).send({ error: 'No Permissions found', success: false });
+    jwt.verify(token, key, async (err, decoded) => {
+      if (err) {
+        return res.status(500).send({ error: 'Authentication failed' });
       }
 
+      deval = decoded;
+
       next();
-    } catch (error) {
-      res.status(500).send({ error: 'Error occured in finding permission', success: false });
+    });
+  } catch (error) {
+    res.status(500).send({ error: 'Error occured in finding permission', success: false });
+  }
+}
+
+// eslint-disable-next-line consistent-return
+async function verifyUserPermission(permission, req, res, next) {
+  const { username } = deval;
+  try {
+    const result = await qer.checkPermission(permission, username);
+
+    if (result.length === 0) {
+      return res.status(400).send({ error: 'No Permissions found', success: false });
     }
-  });
+  } catch (error) {
+    res.status(500).send({ error: 'Error Occured' });
+  }
+  next();
 }
 
-function verifyWritePermission(req, res, next) {
-  verifyToken('write', req, res, next);
-}
-
-function verifyReadPermission(req, res, next) {
-  verifyToken('read', req, res, next);
-}
-function verifyEditPermission(req, res, next) {
-  verifyToken('edit', req, res, next);
-}
-function verifyDeletePermission(req, res, next) {
-  verifyToken('delete', req, res, next);
+function verifyPermission(permission) {
+  return (req, res, next) => {
+    verifyUserPermission(permission, req, res, next);
+  };
 }
 
 module.exports = {
   verifyToken,
-  verifyWritePermission,
-  verifyReadPermission,
-  verifyEditPermission,
-  verifyDeletePermission,
+  verifyPermission,
 };

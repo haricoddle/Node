@@ -9,10 +9,10 @@ const permissionMiddleware = require('../middleware/tokenAuthentication');
 const jsonParser = bodyParser.json();
 router.use(jsonParser);
 
-router.post('/booking', jwtAuthenticate.verifyToken, permissionMiddleware.verifyWritePermission, serviceController.addService);
+router.post('/booking', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('write'), serviceController.addService);
 
-router.put('/update', jwtAuthenticate.verifyToken, permissionMiddleware.verifyEditPermission, serviceController.updateService);
+router.put('/update', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('edit'), serviceController.updateService);
 
-router.delete('/delete', jwtAuthenticate.verifyToken, permissionMiddleware.verifyDeletePermission, serviceController.deleteService);
+router.delete('/delete', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('delete'), serviceController.deleteService);
 
 module.exports = router;

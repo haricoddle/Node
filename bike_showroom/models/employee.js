@@ -15,7 +15,7 @@ async function checkUserQuery(userName, password) {
 }
 
 async function checkPermission(permission, username) {
-  const qr = `SELECT e.name, per.name
+  const qr = `SELECT e.name, per.name as permissions
   FROM employee AS e
   LEFT JOIN role AS r ON e.role_id = r.id
   LEFT JOIN employee_permissions AS p ON r.id = p.roles_id

@@ -9,12 +9,12 @@ const permissionMiddleware = require('../middleware/tokenAuthentication');
 const jsonParser = bodyParser.json();
 router.use(jsonParser);
 
-router.get('/show', jwtAuthenticate.verifyToken, permissionMiddleware.verifyReadPermission, bikeController.showVehicles);
+router.get('/show', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('read'), bikeController.showVehicles);
 
-router.post('/addVehicle', jwtAuthenticate.verifyToken, permissionMiddleware.verifyWritePermission, bikeController.addNewVehicle);
+router.post('/addVehicle', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('write'), bikeController.addNewVehicle);
 
-router.put('/updateVehicle', jwtAuthenticate.verifyToken, permissionMiddleware.verifyEditPermission, bikeController.updateVehicles);
+router.put('/updateVehicle', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('edit'), bikeController.updateVehicles);
 
-router.get('/showAllVehicle', jwtAuthenticate.verifyToken, permissionMiddleware.verifyReadPermission, bikeController.showAllVehicles);
+router.get('/showAllVehicle', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('read'), bikeController.showAllVehicles);
 
 module.exports = router;

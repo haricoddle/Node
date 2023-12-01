@@ -9,6 +9,6 @@ const permissionMiddleware = require('../middleware/tokenAuthentication');
 const jsonParser = bodyParser.json();
 router.use(jsonParser);
 
-router.post('/newSale', jwtAuthenticate.verifyToken, permissionMiddleware.verifyWritePermission, saleController.addSale);
+router.post('/newSale', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('write'), saleController.addSale);
 
 module.exports = router;
