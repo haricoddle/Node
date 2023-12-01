@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const qer = require('../models/sales');
 
 const addSale = async (req, res) => {

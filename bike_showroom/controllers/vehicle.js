@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const qer = require('../models/vehicle');
 
 const showVehicles = async (req, res) => {

@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const qer = require('../models/accessories');
 
 const viewAccessories = async (req, res) => {

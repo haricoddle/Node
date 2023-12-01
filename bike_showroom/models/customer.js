@@ -10,7 +10,7 @@ async function signUpQuery(name, dob, phone, address, email, licenceNo, username
 async function loginQuery(username, password) {
   const qr = `SELECT * FROM customer WHERE username = '${username}' AND password = '${password}';`;
   const passedQuery = await con.promise().query(qr);
-  return passedQuery;
+  return passedQuery[0];
 }
 
 async function searchQuery(custName) {
