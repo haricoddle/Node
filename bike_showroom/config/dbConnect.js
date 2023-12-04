@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+const util = require('util');
 const mysql = require('mysql2');
 
 const conn = mysql.createConnection({
@@ -7,6 +7,8 @@ const conn = mysql.createConnection({
   password: 'password',
   database: 'hari',
 });
+
+conn.query = util.promisify(conn.query);
 
 conn.connect((err) => {
   if (err) throw err;

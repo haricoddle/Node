@@ -12,7 +12,7 @@ function addSaleQuery(
   totalPrice,
 ) {
   const qr = `INSERT INTO sales(cust_id, vehicle_id, employee_id, registration_no, registration_date, gst, road_tax, total_price) VALUES(${customerId}, ${vehicleId}, ${employeeId}, '${registrationNo}', '${registrationDate}', ${gst}, ${roadTax}, ${totalPrice});`;
-  const passedQuery = con.promise().query(qr);
+  const passedQuery = con.query(qr);
   return passedQuery;
 }
 

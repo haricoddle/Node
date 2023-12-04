@@ -58,8 +58,9 @@ const serachUser = async (req, res) => {
   }
   try {
     const data = await qer.searchUserQuery(username);
-    res.status(200).send({ success: data[0] });
+    res.status(200).send({ success: data });
   } catch (err) {
+    console.log(err);
     res.status(500).send({ error: 'error occured' });
   }
 };

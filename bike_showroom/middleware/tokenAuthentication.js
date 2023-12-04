@@ -8,20 +8,20 @@ require('dotenv').config();
 const key = process.env.SECRET_KEY;
 
 async function verifyToken(req, res, next) {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    res.status(500).send({ error: 'no token provided' });
-  }
-
-  const token = authHeader.split(' ')[1];
   try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      res.status(500).send({ error: 'no token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+
     // eslint-disable-next-line consistent-return
     jwt.verify(token, key, async (err, decoded) => {
       if (err) {
         return res.status(500).send({ error: 'Authentication failed' });
       }
-      // eslint-disable-next-line indent
       const deval = decoded;
       res.locals.deval = deval;
       next();

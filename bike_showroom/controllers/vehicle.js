@@ -57,9 +57,8 @@ const showAllVehicles = async (req, res) => {
     const pageNo = await qer.showPageNoQuery();
 
     const totalPage = Math.ceil(pageNo[0][0].count / limit);
-
     res.status(200).send({
-      success: true, currentPage: page, pages: totalPage, data: result[0],
+      success: true, currentPage: page, pages: totalPage, data: result,
     });
   } catch (err) {
     res.status(500).send({ error: 'Error occured,', success: false });
