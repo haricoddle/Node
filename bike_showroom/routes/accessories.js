@@ -9,7 +9,7 @@ const permissionMiddleware = require('../middleware/tokenAuthentication');
 const jsonParser = bodyParser.json();
 router.use(jsonParser);
 
-router.get('/viewAll', permissionMiddleware.verifyPermission('read'), accessController.viewAccessories);
+router.get('/viewAll', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('read'), accessController.viewAccessories);
 
 router.put('/updateAccessory', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('edit'), accessController.updateAccessories);
 

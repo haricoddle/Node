@@ -11,7 +11,10 @@ const viewAccessories = async (req, res) => {
     const totalPage = Math.ceil(pageNo[0][0].count / limit);
 
     res.status(200).send({
-      success: true, currentPage: page, totalPages: totalPage, data: result[0],
+      success: true,
+      currentPage: page,
+      totalPages: totalPage,
+      data: result[0],
     });
   } catch (err) {
     res.status(500).send({ error: 'Error occured', success: false });

@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 const qer = require('../models/employee');
-
-const secretKey = 'hari@2905';
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config();
 
 function generateToken(user) {
-  return jwt.sign(user, secretKey);
+  return jwt.sign(user, process.env.SECRET_KEY);
 }
 
 const createEmployee = async (req, res) => {
@@ -68,6 +68,5 @@ module.exports = {
   createEmployee,
   checkUser,
   generateToken,
-  secretKey,
   serachUser,
 };

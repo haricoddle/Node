@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
 
-const secKey = require('../controllers/customer');
 const qer = require('../models/employee');
 
-const key = secKey.secretKey;
-let deval = null;
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config();
+
+const key = process.env.SECRET_KEY;
 
 async function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -20,9 +21,9 @@ async function verifyToken(req, res, next) {
       if (err) {
         return res.status(500).send({ error: 'Authentication failed' });
       }
-
-      deval = decoded;
-
+      // eslint-disable-next-line indent
+      const deval = decoded;
+      res.locals.deval = deval;
       next();
     });
   } catch (error) {
@@ -32,6 +33,7 @@ async function verifyToken(req, res, next) {
 
 // eslint-disable-next-line consistent-return
 async function verifyUserPermission(permission, req, res, next) {
+  const { deval } = res.locals;
   const { username } = deval;
   try {
     const result = await qer.checkPermission(permission, username);
