@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const con = require('../config/dbConnect');
 
 async function empSignUpQuery(deptId, name, dob, phone, mail, hireDate, salary) {

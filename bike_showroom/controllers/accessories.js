@@ -1,11 +1,11 @@
 const qer = require('../models/accessories');
 
 const viewAccessories = async (req, res) => {
-  const { page } = req.query;
-  const { limit } = req.query;
-  const startIndex = (page - 1) * limit;
-
   try {
+    const { page } = req.query;
+    const { limit } = req.query;
+    const startIndex = (page - 1) * limit;
+
     const result = await qer.showAllQuery(startIndex, limit);
     const pageNo = await qer.showPageNoQuery();
     const totalPage = Math.ceil(pageNo[0][0].count / limit);
@@ -22,13 +22,13 @@ const viewAccessories = async (req, res) => {
 };
 
 const updateAccessories = async (req, res) => {
-  const { id } = req.body;
-  const { type } = req.body;
-
-  if (!id || !type) {
-    res.status(400).send({ error: 'All feilds required', success: false });
-  }
   try {
+    const { id } = req.body;
+    const { type } = req.body;
+
+    if (!id || !type) {
+      res.status(400).send({ error: 'All feilds required', success: false });
+    }
     await qer.updateQuery(id, type);
     res.status(200).send({ success: 'Updated successfully' });
   } catch (err) {
@@ -37,13 +37,14 @@ const updateAccessories = async (req, res) => {
 };
 
 const addAccessories = async (req, res) => {
-  const vehicleId = req.body.vehicle_id;
-  const { type } = req.body;
-
-  if (!vehicleId || !type) {
-    res.status(400).send({ error: 'All feilds are required', success: false });
-  }
   try {
+    const vehicleId = req.body.vehicle_id;
+    const { type } = req.body;
+
+    if (!vehicleId || !type) {
+      res.status(400).send({ error: 'All feilds are required', success: false });
+    }
+
     await qer.addQuery(vehicleId, type);
     res.status(200).send({ success: 'New Item added' });
   } catch (err) {
@@ -52,12 +53,13 @@ const addAccessories = async (req, res) => {
 };
 
 const deleteAccessories = async (req, res) => {
-  const { id } = req.body;
-
-  if (!id) {
-    res.status(400).send({ error: 'All feilds are required', success: false });
-  }
   try {
+    const { id } = req.body;
+
+    if (!id) {
+      res.status(400).send({ error: 'All feilds are required', success: false });
+    }
+
     await qer.deleteQuery(id);
     res.status(200).send({ success: 'Item deleted' });
   } catch (err) {

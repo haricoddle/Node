@@ -9,20 +9,20 @@ function generateToken(user) {
 
 // eslint-disable-next-line consistent-return
 const createUser = async (req, res) => {
-  const { name } = req.body;
-  const { dob } = req.body;
-  const { phone } = req.body;
-  const { address } = req.body;
-  const { email } = req.body;
-  const licenceNo = req.body.licence_no;
-  const { username } = req.body;
-  const { password } = req.body;
-
-  if (!name || !dob || !phone || !address || !email || !licenceNo || !username || !password) {
-    return res.status(400).send({ error: 'All fields are required', success: false });
-  }
-
   try {
+    const { name } = req.body;
+    const { dob } = req.body;
+    const { phone } = req.body;
+    const { address } = req.body;
+    const { email } = req.body;
+    const licenceNo = req.body.licence_no;
+    const { username } = req.body;
+    const { password } = req.body;
+
+    if (!name || !dob || !phone || !address || !email || !licenceNo || !username || !password) {
+      return res.status(400).send({ error: 'All fields are required', success: false });
+    }
+
     await qer.signUpQuery(name, dob, phone, address, email, licenceNo, username, password);
     res.status(201).send({ success: 'New user added' });
   } catch (err) {
@@ -31,13 +31,13 @@ const createUser = async (req, res) => {
 };
 
 const checkUser = async (req, res) => {
-  const { username } = req.body;
-  const { password } = req.body;
-
-  if (!username || !password) {
-    res.status(400).send({ error: 'All feilds are required', success: false });
-  }
   try {
+    const { username } = req.body;
+    const { password } = req.body;
+
+    if (!username || !password) {
+      res.status(400).send({ error: 'All feilds are required', success: false });
+    }
     const result = await qer.loginQuery(username, password);
     if (result.length > 0) {
       const user = result[0];
@@ -52,12 +52,13 @@ const checkUser = async (req, res) => {
 };
 
 const findUser = async (req, res) => {
-  const custName = req.body.name;
-
-  if (!custName) {
-    res.status(400).send({ error: 'Feild required', success: false });
-  }
   try {
+    const custName = req.body.name;
+
+    if (!custName) {
+      res.status(400).send({ error: 'Feild required', success: false });
+    }
+
     const result = await qer.searchQuery(custName);
     if (result.length > 0) {
       res.status(200).send({ result: result[0], success: true });
@@ -70,12 +71,13 @@ const findUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const { id } = req.body;
-
-  if (!id) {
-    res.status(400).send({ error: 'Feilds required', success: false });
-  }
   try {
+    const { id } = req.body;
+
+    if (!id) {
+      res.status(400).send({ error: 'Feilds required', success: false });
+    }
+
     await qer.deleteQuery(id);
     res.status(200).send({ success: 'User deleted' });
   } catch (err) {
@@ -84,11 +86,11 @@ const deleteUser = async (req, res) => {
 };
 
 const showAllUser = async (req, res) => {
-  const { page } = req.query;
-  const { limit } = req.query;
-  const startIndex = (page - 1) * limit;
-
   try {
+    const { page } = req.query;
+    const { limit } = req.query;
+    const startIndex = (page - 1) * limit;
+
     const result = await qer.showAllQuery(startIndex, limit);
     const pageNo = await qer.showPageNoQuery();
     const totalPage = Math.ceil(pageNo[0][0].count / limit);
@@ -102,14 +104,14 @@ const showAllUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const phoneNumber = req.body.phone;
-  const { id } = req.body;
-
-  if (!phoneNumber || !id) {
-    res.status(400).send({ error: 'All feilds are required', success: false });
-  }
-
   try {
+    const phoneNumber = req.body.phone;
+    const { id } = req.body;
+
+    if (!phoneNumber || !id) {
+      res.status(400).send({ error: 'All feilds are required', success: false });
+    }
+
     await qer.updateUserQuery(phoneNumber, id);
     res.status(200).send({ success: 'Customer details updates' });
   } catch (err) {

@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const con = require('../config/dbConnect');
 
 async function signUpQuery(name, dob, phone, address, email, licenceNo, username, password) {

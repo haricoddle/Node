@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const con = require('../config/dbConnect');
 
 async function showAllQuery(startIndex, limit) {

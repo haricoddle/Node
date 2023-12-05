@@ -28,11 +28,12 @@ const uploadFile = async (req, res) => {
 };
 
 const partsImage = async (req, res) => {
-  const { id } = req.query;
-  if (!id) {
-    res.status(400).send({ error: 'feild required', success: false });
-  }
   try {
+    const { id } = req.query;
+    if (!id) {
+      res.status(400).send({ error: 'feild required', success: false });
+    }
+
     qer.partImageQuery(id, req.file.path);
     res.status(200).send({
       success: 'File uploaded successfully',

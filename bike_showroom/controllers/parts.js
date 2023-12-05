@@ -1,11 +1,12 @@
 const qer = require('../models/parts');
 
 const addNewParts = async (req, res) => {
-  const accessoryId = req.query.accessory_id;
-  const { name } = req.query;
-  const { price } = req.query;
-  const { stock } = req.query;
   try {
+    const accessoryId = req.query.accessory_id;
+    const { name } = req.query;
+    const { price } = req.query;
+    const { stock } = req.query;
+
     await qer.addNewPartsQuery(accessoryId, name, price, stock, req.file.path);
     res.status(200).send({
       success: 'Added item successfully',
