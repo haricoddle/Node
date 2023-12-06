@@ -1,7 +1,11 @@
 const express = require('express');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
+
+app.use(cors());
 
 const signRoute = require('./routes/customer');
 const empSignRoute = require('./routes/employee');

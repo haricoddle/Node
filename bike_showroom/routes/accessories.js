@@ -17,4 +17,6 @@ router.post('/addAccessory', jwtAuthenticate.verifyToken, permissionMiddleware.v
 
 router.delete('/deleteAccessory', jwtAuthenticate.verifyToken, permissionMiddleware.verifyPermission('delete'), accessController.deleteAccessories);
 
+router.get('/dispAll', accessController.displayAll);
+
 module.exports = router;

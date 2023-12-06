@@ -10,7 +10,7 @@ async function checkUserQuery(userName, password) {
   const qr = `SELECT * FROM employee
             WHERE username = '${userName}' AND password = '${password}';`;
   const passedQuery = await con.query(qr);
-  return passedQuery[0];
+  return passedQuery;
 }
 
 async function checkPermission(permission, username) {
@@ -21,7 +21,7 @@ async function checkPermission(permission, username) {
   left join permission as per on per.id = p.permissions_id
   WHERE per.name = '${permission}' AND e.username = '${username}';`;
   const passedQuery = await con.query(qr);
-  return passedQuery[0];
+  return passedQuery;
 }
 
 async function searchUserQuery(username) {

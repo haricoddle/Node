@@ -7,14 +7,16 @@ const viewAccessories = async (req, res) => {
     const startIndex = (page - 1) * limit;
 
     const result = await qer.showAllQuery(startIndex, limit);
+
+    console.log(result);
     const pageNo = await qer.showPageNoQuery();
-    const totalPage = Math.ceil(pageNo[0][0].count / limit);
+    const totalPage = Math.ceil(pageNo[0].count / limit);
 
     res.status(200).send({
       success: true,
       currentPage: page,
       totalPages: totalPage,
-      data: result[0],
+      data: result,
     });
   } catch (err) {
     res.status(500).send({ error: 'Error occured', success: false });
@@ -67,9 +69,19 @@ const deleteAccessories = async (req, res) => {
   }
 };
 
+const displayAll = async (req, res) => {
+  try {
+    const data = await qer.displayAllQuery();
+    res.status(200).send({ result: data });
+  } catch (err) {
+    res.status(500).send({ error: 'Error occured' });
+  }
+};
+
 module.exports = {
   viewAccessories,
   updateAccessories,
   addAccessories,
   deleteAccessories,
+  displayAll,
 };

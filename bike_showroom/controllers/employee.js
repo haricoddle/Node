@@ -41,6 +41,7 @@ const checkUser = async (req, res) => {
     }
 
     const result = await qer.checkUserQuery(userName, password);
+    console.log(result);
     if (result.length > 0) {
       const user = result[0];
       const token = generateToken({ id: user.id, username: user.username });

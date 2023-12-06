@@ -33,10 +33,17 @@ async function deleteQuery(id) {
   return passedQuery;
 }
 
+async function displayAllQuery() {
+  const qr = 'SELECT * FROM parts';
+  const passedQuery = await con.query(qr);
+  return passedQuery;
+}
+
 module.exports = {
   showAllQuery,
   showPageNoQuery,
   updateQuery,
   addQuery,
   deleteQuery,
+  displayAllQuery,
 };

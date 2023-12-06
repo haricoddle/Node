@@ -36,10 +36,21 @@ async function deleteCart(cartId) {
   return passedQuery;
 }
 
+async function cartCheck(customerId) {
+  const qr = `SELECT c.id, p.name, p.price, p.image_url, a.type, c.quantity
+            FROM parts AS p
+            LEFT JOIN accessories AS a ON p.accessory_id = a.id
+            LEFT JOIN cart AS c ON p.id = c.product_id
+            WHERE c.customer_id = ${customerId};`;
+  const passedQuery = con.promise().query(qr);
+  return passedQuery;
+}
+
 module.exports = {
   addToCartQuery,
   updateCartQuery,
   viewCartQuery,
   getCartDetails,
   deleteCart,
+  cartCheck,
 };
