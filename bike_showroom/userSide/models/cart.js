@@ -46,6 +46,29 @@ async function cartCheck(customerId) {
   return passedQuery;
 }
 
+async function stockCheck(productId) {
+  const qr = `SELECT stock FROM parts 
+              WHERE id = ${productId};`;
+  const passedQuery = await con.query(qr);
+  return passedQuery[0];
+}
+
+async function stockDecrement(decreValue, productId) {
+  const qr = `UPDATE parts
+              SET stock = ${decreValue}
+              WHERE id = ${productId};`;
+  const passedQuery = await con.query(qr);
+  return passedQuery;
+}
+
+async function updateStock(updatedStockCount, productId) {
+  const qr = `UPDATE parts
+              SET stock = ${updatedStockCount}
+              WHERE id = ${productId};`;
+  const passedQuery = await con.query(qr);
+  return passedQuery;
+}
+
 module.exports = {
   addToCartQuery,
   updateCartQuery,
@@ -53,4 +76,7 @@ module.exports = {
   getCartDetails,
   deleteCart,
   cartCheck,
+  stockCheck,
+  stockDecrement,
+  updateStock,
 };

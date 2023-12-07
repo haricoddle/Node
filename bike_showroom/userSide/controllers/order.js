@@ -27,7 +27,7 @@ const addOrder = async (req, res) => {
       await qer.updateStock(productId, stock, quantity);
     }
     await qer.deleteCartItems(customerId);
-    res.status(200).send({ success: 'Orders added and changes updateed in cart and orders table' });
+    res.status(200).send({ success: 'Orders added and changes updated in cart and orders table' });
   } catch (err) {
     console.log(err);
     res.status(500).send({ error: 'Error occured', success: false });
