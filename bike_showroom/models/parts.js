@@ -1,9 +1,14 @@
+/* eslint-disable consistent-return */
 const con = require('../config/dbConnect');
 
 async function addNewPartsQuery(accessoryId, name, price, stock, path) {
-  const qr = `INSERT INTO parts(accessory_id, name, price, stock, image_url) VALUES(${accessoryId}, '${name}', ${price}, ${stock}, '${path}');`;
-  const passedQuery = con.query(qr);
-  return passedQuery;
+  try {
+    const qr = 'INSERT INTO parts(accessory_id, name, price, stock, image_url) VALUES(?, ?, ?, ?, ?);';
+    const passedQuery = con.query(qr, [accessoryId, name, price, stock, path]);
+    return passedQuery;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 module.exports = {

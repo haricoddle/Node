@@ -1,7 +1,8 @@
+/* eslint-disable consistent-return */
 /* eslint-disable linebreak-style */
 const con = require('../config/dbConnect');
 
-function addSaleQuery(
+async function addSaleQuery(
   customerId,
   vehicleId,
   employeeId,
@@ -11,9 +12,14 @@ function addSaleQuery(
   roadTax,
   totalPrice,
 ) {
-  const qr = `INSERT INTO sales(cust_id, vehicle_id, employee_id, registration_no, registration_date, gst, road_tax, total_price) VALUES(${customerId}, ${vehicleId}, ${employeeId}, '${registrationNo}', '${registrationDate}', ${gst}, ${roadTax}, ${totalPrice});`;
-  const passedQuery = con.query(qr);
-  return passedQuery;
+  try {
+    const qr = 'INSERT INTO sales(cust_id, vehicle_id, employee_id, registration_no, registration_date, gst, road_tax, total_price) VALUES(?, ?, ?, ?, ?, ?, ?, ?);';
+    // eslint-disable-next-line max-len
+    const passedQuery = await con.query(qr, [customerId, vehicleId, employeeId, registrationNo, registrationDate, gst, roadTax, totalPrice]);
+    return passedQuery;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 module.exports = {

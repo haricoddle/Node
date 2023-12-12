@@ -32,7 +32,7 @@ const updateAccessories = async (req, res) => {
       res.status(400).send({ error: 'All feilds required', success: false });
     }
     await qer.updateQuery(id, type);
-    res.status(200).send({ success: 'Updated successfully' });
+    res.status(200).send({ message: 'Updated successfully', success: true });
   } catch (err) {
     res.status(500).send({ error: 'Error occured', success: false });
   }
@@ -48,7 +48,7 @@ const addAccessories = async (req, res) => {
     }
 
     await qer.addQuery(vehicleId, type);
-    res.status(200).send({ success: 'New Item added' });
+    res.status(200).send({ message: 'New Item added', success: true });
   } catch (err) {
     res.status(500).send({ error: 'Error occured', err, success: false });
   }
@@ -63,7 +63,7 @@ const deleteAccessories = async (req, res) => {
     }
 
     await qer.deleteQuery(id);
-    res.status(200).send({ success: 'Item deleted' });
+    res.status(200).send({ message: 'Item deleted', success: true });
   } catch (err) {
     res.status(500).send({ error: 'Error occured', success: false });
   }
@@ -72,9 +72,9 @@ const deleteAccessories = async (req, res) => {
 const displayAll = async (req, res) => {
   try {
     const data = await qer.displayAllQuery();
-    res.status(200).send({ result: data });
+    res.status(200).send({ result: data, success: true });
   } catch (err) {
-    res.status(500).send({ error: 'Error occured' });
+    res.status(500).send({ error: 'Error occured', success: false });
   }
 };
 

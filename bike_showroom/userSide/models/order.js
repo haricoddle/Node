@@ -1,55 +1,88 @@
 const con = require('../../config/dbConnect');
 
 async function getCartDetails(customerId) {
-  const qr = `SELECT * FROM cart WHERE customer_id = ${customerId};`;
-  const passedQuery = await con.promise().query(qr);
-  return passedQuery[0];
+  try {
+    const qr = 'SELECT * FROM cart WHERE customer_id = ?;';
+    const passedQuery = await con.query(qr, [customerId]);
+    return passedQuery[0];
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 async function getCustomerDetails(customerId) {
-  const qr = `SELECT * FROM customer WHERE id = ${customerId};`;
-  const passedQuery = await con.promise().query(qr);
-  return passedQuery[0];
+  try {
+    const qr = 'SELECT * FROM customer WHERE id = ?;';
+    const passedQuery = await con.query(qr, [customerId]);
+    return passedQuery[0];
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 async function addOrderOuery(productId, customerId, customerAddress, totalPrice, quantity) {
-  const qr = `INSERT INTO orders(part_id, cust_id, cust_address, price, quantity) VALUES(${productId}, ${customerId}, '${customerAddress}', ${totalPrice}, ${quantity});`;
-  const passedQuery = await con.promise().query(qr);
-  return passedQuery;
+  try {
+    const qr = 'INSERT INTO orders(part_id, cust_id, cust_address, price, quantity) VALUES(?, ?, ?, ?, ?);';
+    // eslint-disable-next-line max-len
+    const passedQuery = await con.query(qr, [productId, customerId, customerAddress, totalPrice, quantity]);
+    return passedQuery;
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 async function getprice(id) {
-  const qr = `SELECT * FROM parts WHERE id = ${id};`;
-  const passedQuery = await con.promise().query(qr);
-  return passedQuery[0];
+  try {
+    const qr = 'SELECT * FROM parts WHERE id = ?;';
+    const passedQuery = await con.query(qr, [id]);
+    return passedQuery[0];
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 async function updateStock(productId, stock, quantity) {
-  const qr = `UPDATE parts
-            SET stock = ${stock} - ${quantity}
-            WHERE id = ${productId};`;
-  const passedQuery = await con.promise().query(qr);
-  return passedQuery;
+  try {
+    const qr = `UPDATE parts
+            SET stock = ? - ?
+            WHERE id = ?;`;
+    const passedQuery = await con.query(qr, [stock, quantity, productId]);
+    return passedQuery;
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 async function deleteCartItems(customerId) {
-  const qr = `DELETE FROM cart 
-              WHERE customer_id = ${customerId};`;
-  const passedQuery = await con.promise().query(qr);
-  return passedQuery;
+  try {
+    const qr = `DELETE FROM cart 
+              WHERE customer_id = ?;`;
+    const passedQuery = await con.query(qr, [customerId]);
+    return passedQuery;
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 async function viewOrdersQuery(customerId, startIndex, limit) {
-  const qr = `SELECT * FROM orders WHERE cust_id = ${customerId}
-            LIMIT ${startIndex}, ${limit};`;
-  const passedQuery = await con.promise().query(qr);
-  return passedQuery;
+  try {
+    const qr = `SELECT * FROM orders WHERE cust_id = ?
+            LIMIT ?, ?;`;
+    const passedQuery = await con.query(qr, [customerId, startIndex, parseInt(limit, 10)]);
+    return passedQuery;
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 async function showPageNoQuery() {
-  const qr = 'SELECT COUNT(*) AS count FROM customer;';
-  const passedQuery = await con.promise().query(qr);
-  return passedQuery;
+  try {
+    const qr = 'SELECT COUNT(*) AS count FROM customer;';
+    const passedQuery = await con.query(qr);
+    return passedQuery;
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 module.exports = {

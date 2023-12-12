@@ -18,11 +18,11 @@ const createEmployee = async (req, res) => {
     const { salary } = req.body;
 
     if (!deptId || !name || !dob || !phone || !mail || !hireDate || !salary) {
-      res.status(400).send({ error: 'All feilds are required' });
+      res.status(400).send({ error: 'All feilds are required', success: false });
     }
 
     await qer.empSignUpQuery(deptId, name, dob, phone, mail, hireDate, salary);
-    res.status(200).send({ success: 'Created new employee' });
+    res.status(200).send({ Message: 'Created new employee', success: false });
   } catch (err) {
     res.status(500).send({ error: err, success: false });
   }
@@ -45,12 +45,12 @@ const checkUser = async (req, res) => {
     if (result.length > 0) {
       const user = result[0];
       const token = generateToken({ id: user.id, username: user.username });
-      res.status(200).send({ success: 'login successful', token });
+      res.status(200).send({ Message: 'login successful', success: true, token });
     } else {
-      res.status(400).send({ error: 'User not found' });
+      res.status(400).send({ error: 'User not found', success: true });
     }
   } catch (err) {
-    res.status(500).send({ error: 'Error occured' });
+    res.status(500).send({ error: 'Error occured', success: true });
   }
 };
 
@@ -58,14 +58,14 @@ const serachUser = async (req, res) => {
   try {
     const { username } = req.body;
     if (!username) {
-      res.status(400).send({ error: 'all feild required' });
+      res.status(400).send({ error: 'all feild required', success: true });
     }
 
     const data = await qer.searchUserQuery(username);
-    res.status(200).send({ success: data });
+    res.status(200).send({ data, success: true });
   } catch (err) {
     console.log(err);
-    res.status(500).send({ error: 'error occured' });
+    res.status(500).send({ error: 'error occured', success: true });
   }
 };
 

@@ -2,11 +2,11 @@
 const qer = require('../models/order');
 
 const addOrder = async (req, res) => {
-  const customerId = req.body.customer_id;
-  if (!customerId) {
-    res.status(400).send({ error: 'feild required' });
-  }
   try {
+    const customerId = req.body.customer_id;
+    if (!customerId) {
+      res.status(400).send({ error: 'feild required' });
+    }
     const cartdetails = await qer.getCartDetails(customerId);
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i <= cartdetails.length - 1; i++) {
@@ -35,14 +35,14 @@ const addOrder = async (req, res) => {
 };
 
 const viewOrders = async (req, res) => {
-  const { page } = req.query;
-  const { limit } = req.query;
-  const startIndex = (page - 1) * limit;
-  const customerId = req.body.customer_id;
-  if (!customerId) {
-    res.status(400).send({ error: 'Feild required', success: false });
-  }
   try {
+    const { page } = req.query;
+    const { limit } = req.query;
+    const startIndex = (page - 1) * limit;
+    const customerId = req.body.customer_id;
+    if (!customerId) {
+      res.status(400).send({ error: 'Feild required', success: false });
+    }
     const data = await qer.viewOrdersQuery(customerId, startIndex, limit);
     const pageNo = await qer.showPageNoQuery();
     const totalPage = Math.ceil(pageNo[0][0].count / limit);

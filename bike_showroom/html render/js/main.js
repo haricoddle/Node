@@ -1,5 +1,10 @@
 let i = 1;
-fetch('http://localhost:3000/accessories/dispAll').then((res) => datass = res.json()).then((data) => {
+fetch('http://localhost:3000/accessories/dispAll', {
+  method: 'get',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEwLCJ1c2VybmFtZSI6ImJlY2sxMCIsImlhdCI6MTcwMTg0MDc0Nn0.plGt6M-t6jXRVUDSSBYh76FXz-F5v-Py-6ci26K3vTs'},
+}).then((res) => datass = res.json()).then((data) => {
   const recivedData = data.result;
   console.log(recivedData);
   recivedData.forEach((recivedData) => {
@@ -29,7 +34,7 @@ fetch('http://localhost:3000/accessories/dispAll').then((res) => datass = res.js
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEwLCJ1c2VybmFtZSI6ImJlY2sxMCIsImlhdCI6MTcwMTg0MDc0Nn0.plGt6M-t6jXRVUDSSBYh76FXz-F5v-Py-6ci26K3vTs'},
         body: JSON.stringify(data)
       }).then(response => response.json()).catch(error => console.log(error));
-    })
+    }); 
     i++;
   });
 }).catch(error => console.log(error));

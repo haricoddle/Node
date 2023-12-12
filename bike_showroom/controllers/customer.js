@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
     }
 
     await qer.signUpQuery(name, dob, phone, address, email, licenceNo, username, password);
-    res.status(201).send({ success: 'New user added' });
+    res.status(201).send({ message: 'New user added', success: false });
   } catch (err) {
     res.status(500).send({ error: 'Error occurred', success: false });
   }
@@ -42,7 +42,7 @@ const checkUser = async (req, res) => {
     if (result.length > 0) {
       const user = result[0];
       const token = generateToken({ id: user.id, username: user.username });
-      res.status(200).send({ success: 'Login successful', token });
+      res.status(200).send({ message: 'Login successful', success: true, token });
     } else {
       res.status(400).send({ error: 'User not found', success: false });
     }
@@ -79,7 +79,7 @@ const deleteUser = async (req, res) => {
     }
 
     await qer.deleteQuery(id);
-    res.status(200).send({ success: 'User deleted' });
+    res.status(200).send({ message: 'User deleted', success: true });
   } catch (err) {
     res.status(500).send({ error: 'Error occured', success: false });
   }
@@ -113,7 +113,7 @@ const updateUser = async (req, res) => {
     }
 
     await qer.updateUserQuery(phoneNumber, id);
-    res.status(200).send({ success: 'Customer details updates' });
+    res.status(200).send({ message: 'Customer details updates', success: true });
   } catch (err) {
     res.status(500).send({ error: 'some error occured', success: false });
   }

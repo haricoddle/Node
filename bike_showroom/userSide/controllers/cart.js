@@ -1,13 +1,13 @@
 const qer = require('../models/cart');
 
 const addToCart = async (req, res) => {
-  const custId = req.body.customer_id;
-  const productId = req.body.product_id;
-  const { quantity } = req.body;
-  if (!custId || !productId || !quantity) {
-    res.status(400).send({ error: 'All feilds required', success: false });
-  }
   try {
+    const custId = req.body.customer_id;
+    const productId = req.body.product_id;
+    const { quantity } = req.body;
+    if (!custId || !productId || !quantity) {
+      res.status(400).send({ error: 'All feilds required', success: false });
+    }
     await qer.addToCartQuery(custId, productId, quantity);
     res.status(200).send({ success: 'Added to cart successfully' });
   } catch (err) {
@@ -16,12 +16,12 @@ const addToCart = async (req, res) => {
 };
 
 const updateCart = async (req, res) => {
-  const { id } = req.body;
-  const { quantity } = req.body;
-  if (!id || !quantity) {
-    res.status(400).send({ error: 'All feilds required', success: false });
-  }
   try {
+    const { id } = req.body;
+    const { quantity } = req.body;
+    if (!id || !quantity) {
+      res.status(400).send({ error: 'All feilds required', success: false });
+    }
     await qer.updateCartQuery(id, quantity);
     res.status(200).send({ success: 'Cart Updated' });
   } catch (error) {
@@ -30,11 +30,11 @@ const updateCart = async (req, res) => {
 };
 
 const viewCart = async (req, res) => {
-  const customerId = req.body.customer_id;
-  if (!customerId) {
-    res.status(400).send({ error: 'All feilds required' });
-  }
   try {
+    const customerId = req.body.customer_id;
+    if (!customerId) {
+      res.status(400).send({ error: 'All feilds required' });
+    }
     const data = await qer.viewCartQuery(customerId);
     res.status(200).send({ success: data[0] });
   } catch (err) {
@@ -43,11 +43,11 @@ const viewCart = async (req, res) => {
 };
 
 const incrementCart = async (req, res) => {
-  const cartId = req.body.id;
-  if (!cartId) {
-    res.status(400).send({ error: 'All feild required', success: false });
-  }
   try {
+    const cartId = req.body.id;
+    if (!cartId) {
+      res.status(400).send({ error: 'All feild required', success: false });
+    }
     const cartDetails = await qer.getCartDetails(cartId);
     // eslint-disable-next-line no-plusplus
     const itemQuantity = ++cartDetails[0].quantity;
@@ -63,11 +63,11 @@ const incrementCart = async (req, res) => {
 };
 
 const decrementCart = async (req, res) => {
-  const cartId = req.body.id;
-  if (!cartId) {
-    res.status(400).send({ error: 'All feild required', success: false });
-  }
   try {
+    const cartId = req.body.id;
+    if (!cartId) {
+      res.status(400).send({ error: 'All feild required', success: false });
+    }
     const cartDetails = await qer.getCartDetails(cartId);
     // eslint-disable-next-line no-plusplus
     const itemQuantity = --cartDetails[0].quantity;
