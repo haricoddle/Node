@@ -24,8 +24,8 @@ async function loginQuery(username, password) {
 
 async function searchQuery(custName) {
   try {
-    const qr = `SELECT * FROM customer WHERE name = '${custName}';`;
-    const passedQuery = await con.query(qr);
+    const qr = 'SELECT * FROM customer WHERE name = ?;';
+    const passedQuery = await con.query(qr, [custName]);
     return passedQuery;
   } catch (err) {
     console.log(err);

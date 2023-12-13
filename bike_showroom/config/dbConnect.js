@@ -6,6 +6,7 @@ const conn = mysql.createConnection({
   user: 'root',
   password: 'password',
   database: 'hari',
+  multipleStatements: false,
 });
 
 conn.query = util.promisify(conn.query);

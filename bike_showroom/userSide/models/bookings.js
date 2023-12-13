@@ -13,13 +13,13 @@ async function addNewBookingQuery(customerName, phoneNo, location, vehicleId) {
 async function checkForBooking(customerName, phoneNo) {
   try {
     const qr = `SELECT * FROM bookings 
-                WHERE customer_name = '${customerName}'
-                AND phone_no = '${phoneNo}';`;
-    const passedQuery = await con.query(qr);
+                WHERE customer_name = ?
+                AND phone_no = ?;`;
+    const passedQuery = await con.query(qr, [customerName, phoneNo]);
     console.log(passedQuery[0]);
     return passedQuery[0];
   } catch (error) {
-    return console.log(error);
+    console.log(error);
   }
 }
 

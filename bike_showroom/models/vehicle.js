@@ -1,61 +1,72 @@
+/* eslint-disable consistent-return */
 /* eslint-disable linebreak-style */
 const con = require('../config/dbConnect');
 
 async function displayQuery(type) {
   try {
-  const qr = `SELECT v.model_name, v.cc, v.price, v.color_id
+    const qr = `SELECT v.model_name, v.cc, v.price, v.color_id
             FROM vehicle AS v
             LEFT JOIN vehicle_type as t
             ON v.type_id = t.id
             WHERE t.type = ?;`;
-  const passedQuery = await con.query(qr, [type]);
-  return passedQuery;
-  } } catch (err) {
+    const passedQuery = await con.query(qr, [type]);
+    return passedQuery;
+  } catch (err) {
     console.log(err);
   }
-
+}
 
 async function addVehicleQuery(typeId, modelName, cc, price, colorId) {
   try {
-  const qr = 'INSERT INTO vehicle(type_id, model_name, cc, price, color_id) VALUES(?, ?, ?, ?, ?);';
-  const passedQuery = await con.query(qr, [typeId, modelName, cc, price, colorId]);
-  return passedQuery;
-} catch (err) {
-  console.log(err);
-}
+    const qr = 'INSERT INTO vehicle(type_id, model_name, cc, price, color_id) VALUES(?, ?, ?, ?, ?);';
+    const passedQuery = await con.query(qr, [typeId, modelName, cc, price, colorId]);
+    return passedQuery;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 async function updateVehicleQuery(id, price) {
   try {
-      const qr = `UPDATE vehicle
+    const qr = `UPDATE vehicle
         SET price = ?
         WHERE id = ?;`;
-  const passedQuery = await con.query(qr, [price, id]);
-  return passedQuery;
-} catch (err) {
-  console.log(err);
-}
+    const passedQuery = await con.query(qr, [price, id]);
+    return passedQuery;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 async function showAllVehiclesQuery(startIndex, limit) {
   try {
-  const qr = `SELECT * FROM vehicle
+    const qr = `SELECT * FROM vehicle
             LIMIT ?, ?;`;
-  const passedQuery = await con.query(qr, [startIndex, parseInt(limit, 10)]);
-  return passedQuery;
-} catch (err) {
-  console.log(err);
-}
+    const passedQuery = await con.query(qr, [startIndex, parseInt(limit, 10)]);
+    return passedQuery;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 async function showPageNoQuery() {
   try {
-  const qr = 'SELECT COUNT(*) AS count FROM vehicle;';
-  const passedQuery = await con.query(qr);
-  return passedQuery;
-} catch (err) {
-  console.log(err);
+    const qr = 'SELECT COUNT(*) AS count FROM vehicle;';
+    const passedQuery = await con.query(qr);
+    return passedQuery;
+  } catch (err) {
+    console.log(err);
+  }
 }
+
+async function addNewQuery(typeId, modelName, cc, price, colorId, path) {
+  try {
+    const qr = 'INSERT INTO vehicle(type_id, model_name, cc, price, color_id, image_url) VALUES(?, ?, ?, ?, ?, ?)';
+    const passedQuery = await con.query(qr, [typeId, modelName, cc, price, colorId, path]);
+    return passedQuery;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 module.exports = {
@@ -64,4 +75,5 @@ module.exports = {
   updateVehicleQuery,
   showAllVehiclesQuery,
   showPageNoQuery,
+  addNewQuery,
 };

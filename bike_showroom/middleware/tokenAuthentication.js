@@ -42,7 +42,7 @@ async function verifyUserPermission(permission, req, res, next) {
       return res.status(400).send({ error: 'No Permissions found', success: false });
     }
   } catch (error) {
-    res.status(500).send({ error: 'Error Occured' });
+    res.status(500).send({ error: 'Error Occured', success: false });
   }
   next();
 }

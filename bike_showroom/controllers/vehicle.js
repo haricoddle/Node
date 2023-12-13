@@ -68,9 +68,31 @@ const showAllVehicles = async (req, res) => {
   }
 };
 
+const addNew = async (req, res) => {
+  try {
+    const typeId = req.query.type_id;
+    const modelName = req.query.model_name;
+    const { cc } = req.query;
+    const { price } = req.query;
+    const colorId = req.query.color_id;
+
+    if (!typeId || !modelName || !cc || !price || !colorId) {
+      res.status(400).send({ error: 'All feild required', success: false });
+    }
+    await qer.addNewQuery(typeId, modelName, cc, price, colorId, req.file.filename);
+    res.status(200).send({
+      success: 'Added item successfully',
+      image_url: `http://localhost:3000/profile/${req.file.filename}`,
+    });
+  } catch (err) {
+    res.status(500).send({ error: 'Error occured', succ: false });
+  }
+};
+
 module.exports = {
   showVehicles,
   addNewVehicle,
   updateVehicles,
   showAllVehicles,
+  addNew,
 };
